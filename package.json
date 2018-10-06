@@ -1,0 +1,21 @@
+{
+  "name": "uok-trp-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cors": "*",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "^5.0.13",
+    "mongoose-auto-increment": "^5.0.1",
+    "passport": "*",
+    "passport-jwt": "^4.0.0"
+  }
+}
