@@ -59,9 +59,10 @@ app.post('/login', (req,res) => {
   }
 
 });
-app.listen(port, ()=>{
+app.listen(process.env.PORT || 5000 , ()=>{
   console.log('server start on port '+ port);
-});
+})
+
 
 function authAdmin(req,res,next){
   // Get auth header value
