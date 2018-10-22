@@ -16,7 +16,7 @@ router.post('/add',(req,res,next)=>{
         })
       }else{
         res.json({
-          success: true, msg: 'successfully added'
+          success: true, msg: callback
         })
       }
     })

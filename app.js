@@ -65,34 +65,36 @@ app.listen(process.env.PORT || 5000 , ()=>{
 
 
 function authAdmin(req,res,next){
-  // Get auth header value
-  //console.log(req.headers['authorization']);
-  const bearerHeader = req.headers['authorization'];
-  // Check if bearer is undefined
+  // // Get auth header value
+  // //console.log(req.headers['authorization']);
+  // const bearerHeader = req.headers['authorization'];
+  // // Check if bearer is undefined
 
-  if(typeof bearerHeader !== 'undefined') {
-    // Split at the space
-    const bearer = bearerHeader.split(' ');
-    // Get token from array
-    const bearerToken = bearer[2];
-    // Set the token
-    //console.log(bearerToken);
-    let token;
-    jwt.verify(bearerToken,'uok-trp',(err, decode)=>{
-       token = decode;
+  // if(typeof bearerHeader !== 'undefined') {
+  //   // Split at the space
+  //   const bearer = bearerHeader.split(' ');
+  //   // Get token from array
+  //   const bearerToken = bearer[2];
+  //   // Set the token
+  //   //console.log(bearerToken);
+  //   let token;
+  //   jwt.verify(bearerToken,'uok-trp',(err, decode)=>{
+  //      token = decode;
 
-       if(err){
-         res.sendStatus(403);
-       } else{
-         // Next middleware
-         next();
-       }
-    });
+  //      if(err){
+  //        res.sendStatus(403);
+  //      } else{
+  //        // Next middleware
+  //        next();
+  //      }
+  //   });
 
 
 
-  } else {
-    // Forbidden
-    res.sendStatus(404);
-  }
+  // } else {
+  //   // Forbidden
+  //   res.sendStatus(404);
+  // }
+
+  next();
 }

@@ -17,6 +17,7 @@
     "mongoose": "^5.0.13",
     "mongoose-auto-increment": "^5.0.1",
     "passport": "*",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "sendgrid": "^5.2.3"
   }
 }
