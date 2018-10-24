@@ -9,6 +9,8 @@ const config = require('./config/database');
 const jwt = require('jsonwebtoken');
 const app = express();
 
+
+
 mongoose.connect(config.database);
 
 mongoose.connection.on('connected', ()=>{
@@ -98,3 +100,7 @@ function authAdmin(req,res,next){
 
   next();
 }
+
+
+
+

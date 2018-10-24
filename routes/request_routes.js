@@ -1,8 +1,21 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
 const router = express.Router();
 
 const Request = require('../model/requests');
+
+
+
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'trp.uok@gmail.com',
+    pass: 'Dasa@0114'
+  }
+});
+
 
 router.post('/add',(req,res,next)=>{
 
@@ -15,6 +28,11 @@ router.post('/add',(req,res,next)=>{
           success: false, msg: 'error ocuured'
         })
       }else{
+          // sending email
+
+          sendRegEmail(callback['refNo'],callback['password'],callback['lecturer'],callback['email']);
+
+
         res.json({
           success: true, msg: callback
         })
@@ -180,5 +198,28 @@ router.get('/test',(req,res,next) => {
     console.log(request);
   });
 });
+
+function sendRegEmail(refNo,password,name,email)
+{
+  
+   
+
+    var mailOptions = {
+      from: 'Admin <trp.uok@gmail.com>',
+      to: email,
+      subject: 'Request Vehicle - Transport Division, University of Kelaniya',
+      html: "Hi! <b>"+name+"</b><p>Your request is placed successfully. Officail from our division will evaluate it soon. </p>"+
+      "<b><i>Please use following credentials for check the status of your request.</i></b><br><br><p>Your refferance number is : "+
+      refNo+"</p><p>Your password is : "+password+"</p><br>Thank you! "
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+}
 
 module.exports = router;
