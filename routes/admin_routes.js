@@ -268,5 +268,26 @@ router.get('/get_request_has_vehicle', (req,res,next)=>{
       })
     }
   })
-})
+});
+
+// update the vehicle status
+router.get('/set_vehicle_status', (req,res,next)=>{
+
+  let vehicle_no = req.query.vehicle_no;
+  let status= req.query.status;
+  
+  Vehicle.changeVehicleStatus(vehicle_no,status, (err,callback) =>{
+    if(err){
+      res.json({
+        success: false
+      });
+    } else {
+      res.json({
+        success: true,
+        data: callback
+      })
+    }
+  })
+});
+
 module.exports = router;

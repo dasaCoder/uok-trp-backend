@@ -9,8 +9,8 @@ const VehicleSchema = mongoose.Schema({
     required: true
   },
   vehicle_type:{
+    required: true,
     type: String,
-    required: true
   },
   image:{
     type: String // this type should be changed
@@ -18,7 +18,9 @@ const VehicleSchema = mongoose.Schema({
   driver: {
     type: Schema.Types.ObjectId, ref: 'Driver'
   },
-  chassi_no: String
+  chassi_no: String,
+  status: String,
+  status_info: []
   /*trips: [{
     ref_no: {
       type: Number
@@ -33,6 +35,16 @@ const VehicleSchema = mongoose.Schema({
 });
 
 const Vehicle = module.exports = mongoose.model('Vehicle', VehicleSchema);
+
+// update the vehicle status
+// eg:- set vehicle is on maintanence
+module.exports.changeVehicleStatus = function(vehicle_no,status,callback)
+{
+  let query = { vehicle_no:vehicle_no};
+
+  Vehicle.update(query, {'status' : status}, callback);
+}
+
 
 module.exports.getVehicleByNo = function(vehicle_no, callback) {
   Vehicle.find({'vehicle_no':vehicle_no},callback);
@@ -74,5 +86,7 @@ module.exports.getAllDriverDetails = function (callback) {
 module.exports.set_trip = function (trip_plan, callback) {
 
 }
+
+
 
 
