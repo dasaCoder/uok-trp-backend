@@ -151,6 +151,10 @@ module.exports.getActiveRequests = function (callback) {
   Request.find({status : {"$in": [1,2,'1','2']} },'refNo departure arrival status driver vehicle dep_unit',callback);
 }
 
+module.exports.getRequestsOnStatus = function (status,callback) {
+  Request.find({status : {"$in": status} },'refNo departure arrival status driver vehicle dep_unit',callback);
+}
+
 module.exports.getStatusReq = function (params, callback) {
   let query = {$and:[{'refNo':params.refNo},{'password':params.password}]};
   Request.find(query,'status lecturer refNo',callback);

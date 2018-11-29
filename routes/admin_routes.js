@@ -7,6 +7,26 @@ const Driver = require('../model/driver');
 const Vehicle = require('../model/vehicles');
 const Request = require('../model/requests');
 
+//get request on status
+router.get('/requests/status',(req,res,next)=>{
+  
+  let status = req.query.status; // get the status
+
+  Request.getRequestsOnStatus(status,(err,callback)=>{
+    if(err){
+      res.json({
+        success: false, msg:'error occured'
+      });
+    }else{
+      res.json({
+        success: true, msg: callback
+      });
+    }
+  })
+
+})
+
+
 router.post('/driver',(req,res,next)=>{
   let newDriver = new Driver(req.body);
   Driver.addDriver(newDriver , (err,callback) => {
