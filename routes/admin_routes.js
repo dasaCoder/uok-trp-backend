@@ -10,12 +10,13 @@ const Request = require('../model/requests');
 //get request on status
 router.get('/requests/status',(req,res,next)=>{
   
-  let status = req.query.status; // get the status
+  let status = [];
+  status = req.query.status; // get the status, array of status
 
   Request.getRequestsOnStatus(status,(err,callback)=>{
     if(err){
       res.json({
-        success: false, msg:'error occured'
+        success: false, msg:err
       });
     }else{
       res.json({

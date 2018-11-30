@@ -151,8 +151,13 @@ module.exports.getActiveRequests = function (callback) {
   Request.find({status : {"$in": [1,2,'1','2']} },'refNo departure arrival status driver vehicle dep_unit',callback);
 }
 
+// return as array of reqeusts on given status
+// params array of status ["1","2"]
+
 module.exports.getRequestsOnStatus = function (status,callback) {
-  Request.find({status : {"$in": status} },'refNo departure arrival status driver vehicle dep_unit',callback);
+  Request.find({status : {"$in": status} },'refNo departure arrival status driver vehicle dep_unit',callback)
+        .populate({path: 'driver', select: 'name'})
+        .populate({path:'vehicle',select:'vehicle_no'});
 }
 
 module.exports.getStatusReq = function (params, callback) {
