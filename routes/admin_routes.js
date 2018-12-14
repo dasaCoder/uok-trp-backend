@@ -92,7 +92,7 @@ router.get('/vehicle/set_vehicle',(req, res, next) => {
   Request.set_vehicle(req.query.refNo, req.query._id, (err, callback)=> {
     if(err){
       res.json({
-        success: false, msg: 'error occured'
+        success: false, msg: err
       });
     }else{
       res.json({
