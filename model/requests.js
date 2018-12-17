@@ -80,6 +80,12 @@ module.exports.getRequetsOfDriver = function (_id, callback){
   Request.find(query, callback).populate('vehicle');
 }
 
+// return an aray of requests for given vehicle
+module.exports.getRequestsOfVehicle = function(_id, callback) {
+  let query = {'vehicle':_id};
+  Request.find(query,callback).populate('driver');
+}
+
 
 module.exports.get_req_list = function (refNo, callback) {
   Request.find({'status': refNo},'refNo',callback);

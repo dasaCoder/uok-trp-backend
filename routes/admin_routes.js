@@ -47,6 +47,24 @@ router.get('/requests/driver',(req,res,next)=>{
 
 });
 
+//get requests for given vehicle
+router.get('/requests/vehicle', (req,res,next)=>{
+  let _id = '';
+  _id = req.query._id;
+
+  Request.getRequestsOfVehicle(_id, (err,callback)=>{
+    if(err){
+      res.json({
+        success: false, msg:err
+      });
+    }else{
+      res.json({
+        success: true, msg: callback
+      });
+    }
+  })
+})
+
 
 router.post('/driver',(req,res,next)=>{
   let newDriver = new Driver(req.body);
