@@ -25,7 +25,27 @@ router.get('/requests/status',(req,res,next)=>{
     }
   })
 
-})
+});
+
+//get requests for given driver
+router.get('/requests/driver',(req,res,next)=>{
+
+  let _id = '';
+  _id = req.query._id;
+
+  Request.getRequetsOfDriver(_id,(err,callback)=>{
+    if(err){
+      res.json({
+        success: false, msg:err
+      });
+    }else{
+      res.json({
+        success: true, msg: callback
+      });
+    }
+  });
+
+});
 
 
 router.post('/driver',(req,res,next)=>{

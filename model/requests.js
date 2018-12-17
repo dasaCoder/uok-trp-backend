@@ -70,6 +70,17 @@ module.exports.add_request = function(newRequest, callback){
 
 
 }
+
+//return a array of requests for given driver
+module.exports.getRequetsOfDriver = function (_id, callback){
+  
+
+  let query = {'driver':_id};
+  // console.log(query);
+  Request.find(query, callback).populate('vehicle');
+}
+
+
 module.exports.get_req_list = function (refNo, callback) {
   Request.find({'status': refNo},'refNo',callback);
 }
