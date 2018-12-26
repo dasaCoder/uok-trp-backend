@@ -256,32 +256,32 @@ module.exports.getRequetsOfDriverOnMonth = function (_id, month_first_day, callb
  *  */
 module.exports.sendUserEmail = function (refNo, callback ){
 
-  Request.find({'refNo':refNo},'name email status', function(data) {
+  Request.find({'refNo':refNo},'name email status', function(err, data) {
     
     console.log("email is sending "+refNo, data);
-    // if(data[0]) {
+    if(data[0]) {
 
-    //   let request = data[0];
-    //     if(request['status'] == 1){ // when request is confirm
+      let request = data[0];
+        if(request['status'] == 1){ // when request is confirm
 
-    //       var mailOptions = {
-    //         from: 'Admin <trp.uok@gmail.com>',
-    //         to: request['email'],
-    //         subject: 'Request Vehicle - Transport Division, University of Kelaniya',
-    //         html: "Hi! <b>"+ request['name'] +"</b><p>Your request is Confirmed. Please supply us with few additional details to proceed. </p>"+
-    //        "<br>Thank you! "
-    //       };
+          var mailOptions = {
+            from: 'Admin <trp.uok@gmail.com>',
+            to: request['email'],
+            subject: 'Request Vehicle - Transport Division, University of Kelaniya',
+            html: "Hi! <b>"+ request['name'] +"</b><p>Your request is Confirmed. Please supply us with few additional details to proceed. </p>"+
+           "<br>Thank you! "
+          };
           
-    //       transporter.sendMail(mailOptions, function(error, info){
-    //         if (error) {
-    //           console.log(error);
-    //         } else {
-    //           console.log('Email sent: ' + info.response);
-    //         }
-    //       });
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
 
-    //     }
-    // }
+        }
+    }
 
   });
 
