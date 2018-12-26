@@ -128,6 +128,13 @@ router.get('/status/:refNo/:status',(req,res,next) => {
         success: false, msg: 'error occured'
       });
     }else{
+      // send user email
+      if(req.params.status == 1){
+
+        Request.sendUserEmail(req.params.refNo);
+
+      }
+
       res.json({
         success: true, msg: callback
       });

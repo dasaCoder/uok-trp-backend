@@ -250,6 +250,44 @@ module.exports.getRequetsOfDriverOnMonth = function (_id, month_first_day, callb
 
 }
 
+/**
+ *  Send user email in request status changes
+ *  @param refNo
+ *  */
+module.exports.sendUserEmail = function (refNo, callback ){
+
+  Request.find({'refNo':refNo},'name email status', function(data) {
+    
+    if(data[0]) {
+
+      let request = data[0];
+        if(request['status'] == 1){ // when request is confirm
+
+          var mailOptions = {
+            from: 'Admin <trp.uok@gmail.com>',
+            to: request['email'],
+            subject: 'Request Vehicle - Transport Division, University of Kelaniya',
+            html: "Hi! <b>"+ request['name'] +"</b><p>Your request is Confirmed. Please supply us with few additional details to proceed. </p>"+
+           "<br>Thank you! "
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+
+        }
+    }
+
+  });
+
+
+}
+
+
 module.exports.getRequestOnDay = function (date1, callback ) {
   let date_ = new Date(date1);
   date_ = `${date_.getFullYear()}-${date_.getMonth()+1}-${date_.getDate()}`;
