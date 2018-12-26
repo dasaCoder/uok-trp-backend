@@ -318,7 +318,7 @@ module.exports.sendUserEmail = function (refNo, callback ){
         <!--                           <p style="text-align:center;">
                                     <a href="#" class="strong">Example link</a>
                                   </p> -->
-                                  <p class="caption" style="margin-top: 0;margin-bottom: 16px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 20px;">This is a caption text in main email body.</p>
+                                  <p class="caption" style="margin-top: 0;margin-bottom: 16px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 20px;">This is an automatically generated email.</p>
                                 </td>
                             </tr>
                             </tbody>
