@@ -63,6 +63,14 @@ const Driver = require('./driver');
 RequestSchema.plugin(autoIncrement.plugin, {model: 'Request', field: 'refNo'});
 const Request = module.exports = mongoose.model('Request',RequestSchema);
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'trp.uok@gmail.com',
+    pass: 'Dasa@0114'
+  }
+});
+
 module.exports.add_request = function(newRequest, callback){
   if(newRequest) {
     newRequest.save(callback);
