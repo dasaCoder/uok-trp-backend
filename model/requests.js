@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 const config = require('../config/database');
 const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
+var nodemailer = require('nodemailer');
 
 autoIncrement.initialize(mongoose.connection);
 
