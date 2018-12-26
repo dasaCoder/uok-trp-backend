@@ -248,7 +248,7 @@ function sendRegEmail(refNo,password,name,email)
                             <p style="margin-top: 0;margin-bottom: 16px;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 16px;line-height: 24px;">Hi! ${name},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your request is placed successfully. Officail from our division will evaluate it soon.</p> <i> Please use following credentials for check the status of your request.</i> <br><br>
                             <div style="padding-left:50px">
                               <ul class="mail-ul" style="margin-top: 0;padding-left: 0;font-family: Roboto, Helvetica, sans-serif;">
-                              <li style="margin-top: 0;padding-left: 0;">Refferance No : ${refNo}</li>
+                              <li style="margin-top: 0;padding-left: 0;">Refferance No : TRD/${refNo}</li>
                               <li style="margin-top: 0;padding-left: 0;">password : ${password}</li>
                             </ul>
                             </div>

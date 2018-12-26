@@ -265,7 +265,7 @@ module.exports.getRequetsOfDriverOnMonth = function (_id, month_first_day, callb
  *  */
 module.exports.sendUserEmail = function (refNo, callback ){
 
-  Request.find({'refNo':refNo},'name email status', function(err, data) {
+  Request.find({'refNo':refNo},'lecturer email status password', function(err, data) {
     
     console.log("email is sending "+refNo, data);
     if(data[0]) {
@@ -305,11 +305,11 @@ module.exports.sendUserEmail = function (refNo, callback ){
                                   <span style="padding-left:5px;font-size:0.8em;">University of Kelaniya</span>
                                   <hr>
                                   <br>
-                                  <p style="margin-top: 0;margin-bottom: 16px;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 16px;line-height: 24px;">Hi! ${request['name']},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your request (TRD/${refNo}) is Accepted which means we are able to supply your vehicle on time. Please supply us few additional details to proceed. </p> <i> Please use following credentials for check the status of your request.</i> <br><br>
+                                  <p style="margin-top: 0;margin-bottom: 16px;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 16px;line-height: 24px;">Hi! ${request['lecturer']},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your request (TRD/${refNo}) is Accepted which means we are able to supply your vehicle on time. Please supply us few additional details to proceed. </p> <i> Please use following credentials for check the status of your request.</i> <br><br>
                                   <div style="padding-left:50px">
                                     <ul class="mail-ul" style="margin-top: 0;padding-left: 0;font-family: Roboto, Helvetica, sans-serif;">
-                                    <li style="margin-top: 0;padding-left: 0;">Refferance No : TRD/230</li>
-                                    <li style="margin-top: 0;padding-left: 0;">password : 1234</li>
+                                    <li style="margin-top: 0;padding-left: 0;">Refferance No : TRD/${refNo}</li>
+                                    <li style="margin-top: 0;padding-left: 0;">password : ${request['password']}</li>
                                   </ul>
                                   </div>
                                   
