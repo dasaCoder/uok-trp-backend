@@ -45,6 +45,11 @@ module.exports.changeVehicleStatus = function(vehicle_no,status,callback)
   Vehicle.update(query, {'status' : status}, callback);
 }
 
+//return list of vehicles
+module.exports.getVehicleList = function (callback) {
+  Vehicle.find({},{'_id' : 0,'vehicle_no, _id' : 1},callback);
+}
+
 
 module.exports.getVehicleByNo = function(vehicle_no, callback) {
   Vehicle.find({'vehicle_no':vehicle_no},callback);

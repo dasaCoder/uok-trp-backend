@@ -63,6 +63,26 @@ router.get('/requests/vehicle', (req,res,next)=>{
       });
     }
   })
+});
+
+
+// update a request
+router.post('/requests/update',(req,res,next) => {
+  let newRequest = req.body;
+
+  Request.editRequest(newRequest, (err, callback) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: callback
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: callback
+      });
+    }
+  })
 })
 
 

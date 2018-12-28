@@ -164,6 +164,14 @@ module.exports.setMoreInfo = function(params, callback){
   })
 }
 
+// edit request
+module.exports.editRequest = function(params, callback) {
+  console.log(params.refNo);
+
+  Request.findOneAndUpdate({'refNo':params.refNo}, params,callback);
+
+}
+
 module.exports.getActiveRequests = function (callback) {
   Request.find({status : {"$in": [1,2,'1','2']} },'refNo departure arrival status driver vehicle dep_unit',callback);
 }
