@@ -51,6 +51,11 @@ module.exports.getVehicleList = function (callback) {
   Vehicle.find({},{'_id' : 0,'vehicle_no, _id' : 1},callback);
 }
 
+//return list of vehicles under maintenence
+module.exports.getVehicleListOnRepair = function (callback) {
+  Vehicle.find({'status':'102'},{'_id' : 0,'vehicle_no, _id' : 1},callback);
+}
+
 // add maintenance details
 module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
   //console.log(details);
@@ -69,19 +74,29 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
 
   //console.log(dummyReq);
 
-  dummyReq.save();
+  dummyReq.save(function (err, data){
+    if(err){
+      return err;
+    }
+    else{
+      // get dummy requests refNo
+      details['dummyRefNo'] = data['refNo'];
 
-  let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
-  // remove unwanted data
-    details['arrival'] = undefined;
-    details['departure'] = undefined;
-    details['status'] = undefined;
+      let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
+      // remove unwanted data
+        delete details['arrival'];
+        delete details['departure'];
+        delete details['status'];
+    
+      Vehicle.findOneAndUpdate(
+             {'_id':vehicle_id},
+              {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+              callback
+                  );
+    }
+  });
 
-  Vehicle.findOneAndUpdate(
-         {'_id':vehicle_id},
-          {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
-          callback
-              );
+
 }
 
 
