@@ -128,6 +128,14 @@ router.get('/status/:refNo/:status',(req,res,next) => {
         success: false, msg: 'error occured'
       });
     }else{
+      // send user email
+      if(req.params.status == 1){
+
+        Request.sendUserEmail(req.params.refNo);
+
+      }
+
+
       res.json({
         success: true, msg: callback
       });
@@ -208,9 +216,83 @@ function sendRegEmail(refNo,password,name,email)
       from: 'Admin <trp.uok@gmail.com>',
       to: email,
       subject: 'Request Vehicle - Transport Division, University of Kelaniya',
-      html: "Hi! <b>"+name+"</b><p>Your request is placed successfully. Officail from our division will evaluate it soon. </p>"+
-      "<b><i>Please use following credentials for check the status of your request.</i></b><br><br><p>Your refferance number is : "+
-      refNo+"</p><p>Your password is : "+password+"</p><br>Thank you! "
+      html: `
+      <center class="wrapper" style="display: table;table-layout: fixed;width: 100%;min-width: 620px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;background-color: #ffffff;">
+      <table class="top-panel center" width="602" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-spacing: 0;margin: 0 auto;width: 602px;">
+          <tbody>
+          <tr>
+              <td class="title" width="300" style="padding: 8px 0;vertical-align: top;text-align: left;width: 300px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 14px;">Universtiy Of Kelaniya</td>
+              <td class="subject" width="300" style="padding: 8px 0;vertical-align: top;text-align: right;width: 300px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 14px;"><a class="strong" href="#" target="_blank" style="text-decoration: none;color: #616161;font-weight: 700;"></a></td>
+          </tr>
+          <tr>
+              <td class="border" colspan="2" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #e0e0e0;width: 1px;">&nbsp;</td>
+          </tr>
+          </tbody>
+      </table>
+  
+      <div class="spacer" style="font-size: 1px;line-height: 16px;width: 100%;">&nbsp;</div>
+  
+      <table class="main center" width="602" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-spacing: 0;-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);-moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);margin: 0 auto;width: 602px;">
+          <tbody>
+          <tr>
+              <td class="column" style="padding: 0;vertical-align: top;text-align: left;background-color: #ffffff;font-size: 14px;">
+                  <div class="column-top" style="font-size: 24px;line-height: 24px;">&nbsp;</div>
+                  <table class="content" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-spacing: 0;width: 100%;">
+                      <tbody>
+                      <tr>
+                          <td class="padded" style="padding: 0 24px;vertical-align: top;">
+                            <h1 style="margin-bottom: -5px;margin-top: 0;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 20px;line-height: 28px;">Transport Division</h1>
+                            <span style="padding-left:5px;font-size:0.8em;">University of Kelaniya</span>
+                            <hr>
+                            <br>
+                            <p style="margin-top: 0;margin-bottom: 16px;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 16px;line-height: 24px;">Hi! ${name},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your request is placed successfully. Officail from our division will evaluate it soon.</p> <i> Please use following credentials for check the status of your request.</i> <br><br>
+                            <div style="padding-left:50px">
+                              <ul class="mail-ul" style="margin-top: 0;padding-left: 0;font-family: Roboto, Helvetica, sans-serif;">
+                              <li style="margin-top: 0;padding-left: 0;">Refferance No : TRD/${refNo}</li>
+                              <li style="margin-top: 0;padding-left: 0;">password : ${password}</li>
+                            </ul>
+                            </div>
+                            
+                            
+                            <p style="text-align: center;margin-top: 0;margin-bottom: 16px;color: #212121;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 16px;line-height: 24px;"><a href="https://uok-trp.firebaseapp.com" class="btn" style="text-decoration: none;color: #ffffff;background-color: #2196F3;border: 1px solid #2196F3;border-radius: 2px;display: inline-block;font-family: Roboto, Helvetica, sans-serif;font-size: 14px;font-weight: 400;line-height: 36px;text-align: center;text-transform: uppercase;width: 200px;height: 36px;padding: 0 8px;margin: 0;outline: 0;outline-offset: 0;-webkit-text-size-adjust: none;mso-hide: all;">Visit Our Website</a></p>
+  <!--                           <p style="text-align:center;">
+                              <a href="#" class="strong">Example link</a>
+                            </p> -->
+                            <p class="caption" style="margin-top: 0;margin-bottom: 16px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 20px;">This is an automatically generated email.</p>
+                          </td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  <div class="column-bottom" style="font-size: 8px;line-height: 8px;">&nbsp;</div>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+  
+      <div class="spacer" style="font-size: 1px;line-height: 16px;width: 100%;">&nbsp;</div>
+  
+      <table class="footer center" width="602" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-spacing: 0;margin: 0 auto;width: 602px;">
+          <tbody>
+          <tr>
+              <td class="border" colspan="2" style="padding: 0;vertical-align: top;font-size: 1px;line-height: 1px;background-color: #e0e0e0;width: 1px;">&nbsp;</td>
+          </tr>
+          <tr>
+              <td class="signature" width="300" style="padding: 0;vertical-align: bottom;width: 300px;padding-top: 8px;margin-bottom: 16px;text-align: left;">
+                  <p style="margin-top: 0;margin-bottom: 8px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 18px;">
+                      With best regards,<br>
+                      Transport Division,<br>
+                      University Of Kelaniya <br>
+  <!--                     +0 (000) 00-00-00, John Doe<br> -->
+                      </p>
+                  <p style="margin-top: 0;margin-bottom: 8px;color: #616161;font-family: Roboto, Helvetica, sans-serif;font-weight: 400;font-size: 12px;line-height: 18px;">
+                      Support: <a class="strong" href="mailto:#" target="_blank" style="text-decoration: none;color: #616161;font-weight: 700;">trp.uok@gmail.com</a>
+                  </p>
+              </td>
+ 
+          </tr>
+          </tbody>
+      </table>
+  </center>`
     };
     
     transporter.sendMail(mailOptions, function(error, info){
