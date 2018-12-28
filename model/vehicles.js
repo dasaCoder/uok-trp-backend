@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config/database');
+const Request = require('./requests');
 const Schema = mongoose.Schema;
 
 const VehicleSchema = mongoose.Schema({
@@ -19,8 +20,8 @@ const VehicleSchema = mongoose.Schema({
     type: Schema.Types.ObjectId, ref: 'Driver'
   },
   chassi_no: String,
-  status: String,
-  status_info: []
+  status: String, // 100 -> good, 101-> need maintenence, 102-> under maintenence
+  status_info: { type : Array , "default" : [] } // stores the history of maintenence
   /*trips: [{
     ref_no: {
       type: Number
@@ -48,6 +49,39 @@ module.exports.changeVehicleStatus = function(vehicle_no,status,callback)
 //return list of vehicles
 module.exports.getVehicleList = function (callback) {
   Vehicle.find({},{'_id' : 0,'vehicle_no, _id' : 1},callback);
+}
+
+// add maintenance details
+module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
+  //console.log(details);
+  details['_id'] = mongoose.Types.ObjectId(); // generate _id
+
+  // generate dummy request for maintenance
+  let dummyReq = new Request(
+    {
+      "status":"100",
+      "purpose":"maintenance",
+      "departure":details['departure'],
+      "arrival":details['arrival'],
+      "vehicle":vehicle_id
+    }
+  );
+
+  //console.log(dummyReq);
+
+  dummyReq.save();
+
+  let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
+  // remove unwanted data
+    details['arrival'] = undefined;
+    details['departure'] = undefined;
+    details['status'] = undefined;
+
+  Vehicle.findOneAndUpdate(
+         {'_id':vehicle_id},
+          {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+          callback
+              );
 }
 
 
