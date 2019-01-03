@@ -63,8 +63,46 @@ router.get('/requests/vehicle', (req,res,next)=>{
       });
     }
   })
-})
+});
 
+
+// update a request
+router.post('/requests/update',(req,res,next) => {
+  let newRequest = req.body;
+
+  Request.editRequest(newRequest, (err, callback) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: callback
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: callback
+      });
+    }
+  })
+});
+
+// add vehicle maintenence details
+router.post('/vehicle/maintenance/add', (req,res,next) => {
+  let vehicle_id = req.query._id;
+
+  Vehicle.addMaintenanceDetails(vehicle_id,req.body,(err, callback) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: callback
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: "Successfully added"
+      });
+    }
+  });
+});
 
 router.post('/driver',(req,res,next)=>{
   let newDriver = new Driver(req.body);
