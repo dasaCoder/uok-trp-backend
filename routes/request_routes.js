@@ -1,6 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
+var fs = require('fs');
+  var pdf = require('html-pdf');
 const router = express.Router();
 
 const Request = require('../model/requests');
@@ -201,11 +203,20 @@ router.post('/getStatus', (req,res,next) => {
 })
 
 router.get('/test',(req,res,next) => {
-  Request.authTest(5, (err, request) => {
-    if(err) console.log(err);
-    console.log(request);
+  let refNo = 54;
+  var html = fs.readFileSync('./templates/application.html', 'utf8');
+  html = html.replace('{{refNo}}',refNo);
+  var options = { 
+                  format: 'A4',
+                  border: 0 
+                };
+
+  pdf.create(html, options).toFile('./'+refNo+'.pdf', function(err, response) {
+    if (err) return console.log(err);
+    res.json(response); // { filename: '/app/businesscard.pdf' }
   });
 });
+
 
 function sendRegEmail(refNo,password,name,email)
 {
@@ -304,14 +315,5 @@ function sendRegEmail(refNo,password,name,email)
     });
 }
 
-var fs = require('fs');
-var pdf = require('html-pdf');
-var html = fs.readFileSync('./test/businesscard.html', 'utf8');
-var options = { format: 'Letter' };
-
-pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
-  if (err) return console.log(err);
-  console.log(res); // { filename: '/app/businesscard.pdf' }
-});
 
 module.exports = router;

@@ -1,1 +1,10 @@
 /node_modules
+config/database\.js
+
+\.idea/workspace\.xml
+
+\.idea/vcs\.xml
+
+\.idea/uok-trp-backend\.iml
+
+\.idea/modules\.xml

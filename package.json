@@ -20,7 +20,8 @@
     "nodemailer": "^4.6.8",
     "passport": "*",
     "passport-jwt": "^4.0.0",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "html-pdf": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

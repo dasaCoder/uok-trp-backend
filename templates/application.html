@@ -1,8 +1,14 @@
-<html>
-    <head>
+
         <style>
-            .page {
-                width: 21cm;
+            html, body {
+                    margin: -110px -165px;
+                    padding: 0;
+                    -webkit-print-color-adjust: exact;
+                    box-sizing: border-box;
+                    font-size: 12px;
+                }
+            body {
+                width: 20cm;
                 height: 29.7cm;
                 margin: 30mm 45mm 30mm 45mm; 
             
@@ -10,8 +16,12 @@
             /* change the margins as you want them to be. */
                 }
 
+                table{
+                    font-size: 12px;
+                }
+
                 td:first-child{
-                width:5cm;
+                width:4cm;
                 }
 
                 /* table td+td{
@@ -139,7 +149,7 @@
                     color: Black;
                     font-family: Roboto, Helvetica, sans-serif;
                     font-weight: 400;
-                    font-size: 30px;
+                    font-size: 25px;
                     line-height: 14px;
                 }
 
@@ -243,16 +253,16 @@
                 }
 
         </style>
-    </head>
+    
     <body>
             <div class="page">
-                    <center class="wrapper">
+                    <div class="wrapper">
                       <table class="top-panel center" width="602" border="0" cellspacing="0" cellpadding="0">
                           <tbody>
                           <tr>
                             <br>
                               <td><img src="https://i.ibb.co/0hjnWbB/220px-Kelaniya.png" alt="220px-Kelaniya" style="height:100px;float:right" border="0"></td>
-                              <td class="title" width="300"><div class="title">ප්රවාහන අංශය</div>
+                              <td class="title" width="300"><div class="title">ප්‍රවාහන අංශය</div>
                                 <div class="title" style="    font-size: 15px;
                     padding-top: 0px;
                    ">
@@ -266,41 +276,29 @@
                             
                           </tbody>
                       </table>
-                <br>
-                      <h3>ධාවන වාරයක් සදහා රථයක් ලබා ගැනීමට අවසර ලබා ගැනීම</h3>
+                
+                      <div style="text-align:center;font-size: 18px;width: 21cm">
+                          <h5>ධාවන වාරයක් සදහා රථයක් ලබා ගැනීමට අවසර ලබා ගැනීම</h3>
+                            <hr>
+                      </div>
                       <div class="spacer">&nbsp;</div>
                 
                       <table class="main center" width="602" border="0" cellspacing="0" cellpadding="0">
                           <tbody>
                             
                           <tr>
-                              <td class="column">
+                              <td class="column" style="padding: 0 10px 0 10px;">
                                   <div class="column-top">&nbsp;</div>
                                   <table class="content" border="0" cellspacing="0" cellpadding="0">
                                       <tbody>
                                       <tr>
-                <!--                           <td class="padded">
-                                            <h1 style="margin-bottom:-5px">Transport Division</h1>
-                                            <span style="padding-left:5px;font-size:0.8em;">University of Kelaniya</span>
-                                            <hr>
-                                            <br>
-                                            <p>Hi! Diusha,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Your request is Accepted which means we are able to supply your vehicle on time. Please supply us few additional details to proceed. </p> <i> Please use following credentials for check the status of your request.</i> <br><br>
-                                            <div style="padding-left:50px">
-                                              <ul class="mail-ul">
-                                              <li>Refferance No : TRD/230</li>
-                                              <li>password : 1234</li>
-                                            </ul>
-                                            </div>
-                
-                                            <p class="caption">This is a caption text in main email body.</p>
-                                          </td> -->
                                       </tr>
-                                                                                                                   <tr>
+                                    <tr>
                                                 <td class="padded">
                                                   අංකය
                                                 </td>
                                                 <td class="padded">
-                                                  TRD/${this.request.refNo}
+                                                  TRD/{{refNo}}
                                                 </td>
                                               </tr>
                                               <tr>
@@ -400,7 +398,7 @@
                                       ඉල්ලුම්කරුගේ අත්සන
                                     </td>
                                      <td class="padded-sign">
-                                      Dean
+                                      පීඨාධිපති
                                     </td>
                                      <td class="padded-sign">
                                       දිනය
@@ -418,12 +416,12 @@
                       <div class="spacer">&nbsp;</div>
                 
                       <table class="footer center" width="602" border="0" cellspacing="0" cellpadding="0">
-                          <tbody>
+                          <tbody style="padding-left:10px">
                           <tr>
                               <td class="border" colspan="2">&nbsp;</td>
                           </tr>
                           <tr>
-                              <td class="signature" width="300">
+                              <td class="signature" width="300" style="padding-left:20px">
                                   <p>
                                     
                                       Transport Division,<br>
@@ -438,8 +436,5 @@
                           </tr>
                           </tbody>
                       </table>
-                  </center>
+                    </div>
                 </div>
-    </body>
-
-</html>

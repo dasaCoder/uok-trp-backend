@@ -268,6 +268,11 @@ module.exports.getRequetsOfDriverOnMonth = function (_id, month_first_day, callb
 }
 
 /**
+ *  Generate application pdf for given request
+*/
+
+
+/**
  *  Send user email in request status changes
  *  @param refNo
  *  */
