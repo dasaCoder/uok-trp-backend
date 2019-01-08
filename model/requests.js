@@ -429,9 +429,9 @@ module.exports.uploadRequest = function (refNo) {
   var html = fs.readFileSync('./templates/application.html', 'utf8');
 
 
-  Request.find({'refNo':refNo},'lecturer email status password', function(err, data) {
+  Request.find({'refNo':refNo}, function(err, data) {
     
-    console.log("email is sending "+refNo, data);
+    console.log("Pdf is uploading....... "+refNo, data);
     if(data[0]) {
 
       let request = data[0];
@@ -475,6 +475,8 @@ module.exports.uploadRequest = function (refNo) {
           .then(file => {
             console.log(file);
             fs.unlinkSync(localFileLocation);
+
+            console.log("pdf uploaded");
           })
       
       });
