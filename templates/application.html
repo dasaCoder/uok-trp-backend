@@ -21,7 +21,7 @@
                 }
 
                 td:first-child{
-                width:4cm;
+                width:3cm;
                 }
 
                 /* table td+td{
@@ -262,11 +262,11 @@
                           <tr>
                             <br>
                               <td><img src="https://i.ibb.co/0hjnWbB/220px-Kelaniya.png" alt="220px-Kelaniya" style="height:100px;float:right" border="0"></td>
-                              <td class="title" width="300"><div class="title">ප්‍රවාහන අංශය</div>
+                              <td class="title" width="300"><div class="title">Transport Division</div>
                                 <div class="title" style="    font-size: 15px;
                     padding-top: 0px;
                    ">
-                                  කැළණිය විශ්ව විද්‍යාලය - කැළණිය
+                                  University of Kelaniya - Kelaniya
                                 </div>
                             </td>
                              
@@ -278,7 +278,8 @@
                       </table>
                 
                       <div style="text-align:center;font-size: 18px;width: 21cm">
-                          <h5>ධාවන වාරයක් සදහා රථයක් ලබා ගැනීමට අවසර ලබා ගැනීම</h3>
+                          <h5>
+                            Obtaining a Permission to Drive for a Official Journey</h3>
                             <hr>
                       </div>
                       <div class="spacer">&nbsp;</div>
@@ -295,7 +296,7 @@
                                       </tr>
                                     <tr>
                                                 <td class="padded">
-                                                  අංකය
+                                                  Ref No.
                                                 </td>
                                                 <td class="padded">
                                                   TRD/{{refNo}}
@@ -303,7 +304,7 @@
                                               </tr>
                                               <tr>
                                                 <td class="padded">
-                                                  ඉල්ලුම්කරුගේ නම
+                                                  Applicant's Name
                                                 </td>
                                                 <td class="padded">
                                                 ${this.request.lecturer}
@@ -311,7 +312,7 @@
                                               </tr>
                                                                       <tr>
                                                 <td class="padded">
-                                                  ඉල්ලුම්කරුගේ තනතුර
+                                                  Applicant's Designation
                                                 </td>
                                                 <td class="padded">
                                                 ${this.request.position}
@@ -319,7 +320,7 @@
                                               </tr>
                                                                       <tr>
                                                 <td class="padded">
-                                                  පීඨය
+                                                  Faculty / Department
                                                 </td>
                                                 <td class="padded">
                                                 ${this.request.dep_unit}
@@ -329,11 +330,11 @@
                                       </tbody>
                                   </table>
                                 <hr>
-                                <h4 class="padded">චාරිකාව පිළිබද</h4> <br>
+                                <h4 class="padded">About the trip</h4> <br>
                                 <table  class="content" border="0" cellspacing="0" cellpadding="0">
                                                           <tr>
                                           <td class="padded">
-                                            ආරම්භක ස්ථානය
+                                            Starting point
                                           </td>
                 
                                           <td class="padded">
@@ -343,7 +344,7 @@
                 
                                         <tr>
                                           <td class="padded">
-                                            ගමනාන්තය
+                                            Destination
                                           </td>
                 
                                           <td class="padded">
@@ -352,30 +353,30 @@
                                         </tr>
                                         <tr>
                                           <td class="padded">
-                                            පිටත්වන දිනය
+                                            Date of departure
                                           </td>
                 
-                                          <td class="padded" style="width:5cm">
+                                          <td class="padded" style="width:3cm">
                                           ${this.request.departure.pickupDate}
                                           </td>
                 
-                                          <td class="padded">වේලාව</td>
+                                          <td class="padded">Time</td>
                                           <td class="padded">${this.request.departure.pickupTime}</td>
                 
                 
                                         </tr>
                 
                                         <tr>
-                                          <td class="padded" style="width:5cm">ආපසු පැමිණෙන දිනය</td>
+                                          <td class="padded" style="width:3cm">Date of arrival</td>
                                           <td class="padded">${this.request.arrival.dropDate}</td>
-                                          <td class="padded">වේලාව</td>
+                                          <td class="padded">Time</td>
                                           <td class="padded">${this.request.arrival.dropTime}</td>
                 
                 
                                         </tr>
                 
                                         <tr>
-                                          <td class="padded">හේතුව</td>
+                                          <td class="padded">Reason</td>
                                           <td class="padded">${this.request.purpose}</td>
                                         </tr>
                                 </table>
@@ -395,13 +396,13 @@
                                   </tr>
                                   <tr>
                                     <td class="padded-sign">
-                                      ඉල්ලුම්කරුගේ අත්සන
+                                      Applicant's signature
                                     </td>
                                      <td class="padded-sign">
-                                      පීඨාධිපති
+                                      Dean/ Unit head
                                     </td>
                                      <td class="padded-sign">
-                                      දිනය
+                                      Date
                                     </td>
                                   </tr>
                                   
