@@ -155,6 +155,8 @@ router.post('/more_details', (req,res,next) => {
         success: false, msg: 'error occured'
       });
     }else{
+      Request.uploadRequest(req.body['refNo']);
+
       res.json({
         success: true, msg: callback
       })

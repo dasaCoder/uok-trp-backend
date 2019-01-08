@@ -173,10 +173,6 @@ module.exports.setMoreInfo = function(params, callback){
           console.log(err);
           res.status(500).send(err);
         }else {
-
-          // save and upload request to gcs
-          uploadRequest(request);
-          
           res.status(200).send(request);
         }
   })
@@ -429,40 +425,52 @@ module.exports.getRequestsHasVehicleOnDay = function (date,callback) {
  *  upload request file into google cloud store
  *  @param request
  */
-function uploadRequest(request) {
+module.exports.uploadRequest = function (refNo) {
   var html = fs.readFileSync('./templates/application.html', 'utf8');
 
-  // replace variables in template file
-  html = html.replace('{{refNo}}',request['refNo']);
 
-
-  var options = { 
-                  format: 'A4',
-                  border: 0 
-                };
-
-  // create pdf
-  pdf.create(html, options).toFile('./'+ refNo +'.pdf', function(err, response) {
-    if (err) return console.log(err);
+  Request.find({'refNo':refNo},'lecturer email status password', function(err, data) {
     
-    var storage = new Storage({
-      projectId: process.env.PROJECT_ID,
-      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
-    });
-  
-    var BUCKET_NAME = process.env.REQUEST_BUCKET;
-  
-    var myBucket = storage.bucket(BUCKET_NAME);
-  
-    let localFileLocation = './'+ refNo +'.pdf';
-  
-    // upload to google cs
-    myBucket.upload(localFileLocation, { public: true })
-      .then(file => {
-        console.log(file);
-        fs.unlinkSync(localFileLocation);
-      })
-  
+    console.log("email is sending "+refNo, data);
+    if(data[0]) {
+
+      let request = data[0];
+
+      // replace variables in template file
+      html = html.replace('{{refNo}}',request['refNo']);
+
+
+      var options = { 
+                      format: 'A4',
+                      border: 0 
+                    };
+
+      // create pdf
+      pdf.create(html, options).toFile('./'+ refNo +'.pdf', function(err, response) {
+        if (err) return console.log(err);
+        
+        var storage = new Storage({
+          projectId: process.env.PROJECT_ID,
+          keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+        });
+      
+        var BUCKET_NAME = process.env.REQUEST_BUCKET;
+      
+        var myBucket = storage.bucket(BUCKET_NAME);
+      
+        let localFileLocation = './'+ refNo +'.pdf';
+      
+        // upload to google cs
+        myBucket.upload(localFileLocation, { public: true })
+          .then(file => {
+            console.log(file);
+            fs.unlinkSync(localFileLocation);
+          })
+      
+      });
+
+    }
   });
+  
 
 }

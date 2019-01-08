@@ -77,6 +77,7 @@ router.post('/requests/update',(req,res,next) => {
         msg: callback
       });
     }else{
+      Request.uploadRequest(req.body['refNo']);
       res.json({
         success: true,
         msg: callback
