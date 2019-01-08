@@ -5,6 +5,11 @@ const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
 var nodemailer = require('nodemailer');
 
+// request upload
+const {Storage} = require('@google-cloud/storage');
+var pdf = require('html-pdf');
+var fs = require('fs');
+
 autoIncrement.initialize(mongoose.connection);
 
 const RequestSchema = mongoose.Schema({
@@ -168,6 +173,10 @@ module.exports.setMoreInfo = function(params, callback){
           console.log(err);
           res.status(500).send(err);
         }else {
+
+          // save and upload request to gcs
+          uploadRequest(request);
+          
           res.status(200).send(request);
         }
   })
@@ -413,4 +422,47 @@ module.exports.getRequestsHasVehicleOnDay = function (date,callback) {
   let query = {$and:[{'vehicle':{$exists:true}}, {'departure.pickupDate':date}]};
   Request.find(query, 'refNo departure.dropPoint departure.pickupPoint departure.dropTime departure.pickupTime',callback)
     .populate('vehicle');
+}
+
+
+/**
+ *  upload request file into google cloud store
+ *  @param request
+ */
+function uploadRequest(request) {
+  var html = fs.readFileSync('./templates/application.html', 'utf8');
+
+  // replace variables in template file
+  html = html.replace('{{refNo}}',request['refNo']);
+
+
+  var options = { 
+                  format: 'A4',
+                  border: 0 
+                };
+
+  // create pdf
+  pdf.create(html, options).toFile('./'+ refNo +'.pdf', function(err, response) {
+    if (err) return console.log(err);
+    
+    var storage = new Storage({
+      projectId: process.env.PROJECT_ID,
+      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+    });
+  
+    var BUCKET_NAME = process.env.REQUEST_BUCKET;
+  
+    var myBucket = storage.bucket(BUCKET_NAME);
+  
+    let localFileLocation = './'+ refNo +'.pdf';
+  
+    // upload to google cs
+    myBucket.upload(localFileLocation, { public: true })
+      .then(file => {
+        console.log(file);
+        fs.unlinkSync(localFileLocation);
+      })
+  
+  });
+
 }

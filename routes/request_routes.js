@@ -1,13 +1,15 @@
+const {Storage} = require('@google-cloud/storage');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
-var fs = require('fs');
-  var pdf = require('html-pdf');
+
+var pdf = require('html-pdf');
+
 const router = express.Router();
 
 const Request = require('../model/requests');
 
-
+var fs = require('fs');
 
 
 var transporter = nodemailer.createTransport({
@@ -211,17 +213,39 @@ router.get('/test',(req,res,next) => {
                   border: 0 
                 };
 
-  pdf.create(html, options).toFile('./'+refNo+'.pdf', function(err, response) {
+  pdf.create(html, options).toFile('./'+ refNo +'.pdf', function(err, response) {
     if (err) return console.log(err);
-    res.json(response); // { filename: '/app/businesscard.pdf' }
+    
+    var storage = new Storage({
+      projectId: process.env.PROJECT_ID,
+      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+    });
+  
+    var BUCKET_NAME = process.env.REQUEST_BUCKET;
+  
+    var myBucket = storage.bucket(BUCKET_NAME);
+  
+    let localFileLocation = './'+ refNo +'.pdf';
+  
+    myBucket.upload(localFileLocation, { public: true })
+      .then(file => {
+        console.log(file);
+        fs.unlinkSync(localFileLocation);
+      })
+  
   });
+
+
+
 });
 
+async function uploadFile() {
+
+
+}
 
 function sendRegEmail(refNo,password,name,email)
 {
-  
-   
 
     var mailOptions = {
       from: 'Admin <trp.uok@gmail.com>',
@@ -314,6 +338,8 @@ function sendRegEmail(refNo,password,name,email)
       }
     });
 }
+
+
 
 
 module.exports = router;

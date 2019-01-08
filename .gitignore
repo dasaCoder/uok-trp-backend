@@ -1,5 +1,6 @@
 /node_modules
 config/database\.js
+config/gcpkey.json
 
 \.idea/workspace\.xml
 
@@ -8,3 +9,5 @@ config/database\.js
 \.idea/uok-trp-backend\.iml
 
 \.idea/modules\.xml
+node_modules
+
