@@ -438,6 +438,16 @@ module.exports.uploadRequest = function (refNo) {
 
       // replace variables in template file
       html = html.replace('{{refNo}}',request['refNo']);
+      html = html.replace('{{lecturer}}',request['lecturer']);
+      html = html.replace('{{position}}',request['position']);
+      html = html.replace('{{dep_unit}}',request['dep_unit']);
+      html = html.replace('{{departure_pickPointAddress}}',request['departure']['pickPointAddress']);
+      html = html.replace('{{departure_dropPointAddress}}',request['departure']['dropPointAddress']);
+      html = html.replace('{{departure_pickupDate}}',request['departure']['pickupDate']);
+      html = html.replace('{{departure_pickupTime}}',request['departure']['pickupTime']);
+      html = html.replace('{{arrival_dropDate}}',request['arrival']['dropDate']);
+      html = html.replace('{{arrival_dropTime}}',request['arrival']['dropTime']);
+      html = html.replace('{{purpose}}',request['purpose']);
 
 
       var options = { 

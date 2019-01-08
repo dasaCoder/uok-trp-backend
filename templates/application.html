@@ -277,7 +277,7 @@
                           </tbody>
                       </table>
                 
-                      <div style="text-align:center;font-size: 9.9pt;width: 18cm">
+                      <div style="text-align:center;font-size: 9.9pt;width: 15cm">
                           <p>
                             Obtaining a Permission to Drive for a Official Journey</p>
                             <hr>
@@ -307,7 +307,7 @@
                                                   Applicant's Name
                                                 </td>
                                                 <td class="padded">
-                                                ${this.request.lecturer}
+                                                {{lecturer}}
                                                 </td>
                                               </tr>
                                                                       <tr>
@@ -315,7 +315,7 @@
                                                   Applicant's Designation
                                                 </td>
                                                 <td class="padded">
-                                                ${this.request.position}
+                                                {{position}}
                                                 </td>
                                               </tr>
                                                                       <tr>
@@ -323,7 +323,7 @@
                                                   Faculty / Department
                                                 </td>
                                                 <td class="padded">
-                                                ${this.request.dep_unit}
+                                                {{dep_unit}}
                                                 </td>
                                               </tr>
                 
@@ -338,7 +338,7 @@
                                           </td>
                 
                                           <td class="padded">
-                                          ${this.request.departure.pickPointAddress}
+                                          {{departure_pickPointAddress}}
                                           </td>
                                         </tr>
                 
@@ -348,7 +348,7 @@
                                           </td>
                 
                                           <td class="padded">
-                                          ${this.request.departure.dropPointAddress}
+                                         {{departure_dropPointAddress}}
                                           </td>
                                         </tr>
                                         <tr>
@@ -357,7 +357,7 @@
                                           </td>
                 
                                           <td class="padded" style="width:2cm">
-                                          ${this.request.departure.pickupDate} : ${this.request.departure.pickupTime}
+                                          {{departure_pickupDate}} : {{departure_pickupTime}}
                                           </td>
                 
                                           <!-- <td class="padded">Time</td>
@@ -368,7 +368,7 @@
                 
                                         <tr>
                                           <td class="padded" style="width:2cm">Date of arrival</td>
-                                          <td class="padded">${this.request.arrival.dropDate} : ${this.request.arrival.dropTime}</td>
+                                          <td class="padded">{{arrival_dropDate}} : {{arrival_dropTime}}</td>
                                           <!-- <td class="padded">Time</td>
                                           <td class="padded">${this.request.arrival.dropTime}</td> -->
                 
@@ -377,7 +377,7 @@
                 
                                         <tr>
                                           <td class="padded">Reason</td>
-                                          <td class="padded">${this.request.purpose}</td>
+                                          <td class="padded">{{purpose}}</td>
                                         </tr>
                                 </table>
                                 <hr>
@@ -385,13 +385,13 @@
                                   <tr>
                                     <br><br><br>
                                     <td class="padded">
-                                      ............................................................
+                                      .................................
                                     </td>
                                      <td class="padded">
-                                      ............................................................
+                                      .................................
                                     </td>
                                      <td class="padded">
-                                      ............................................................
+                                      .................................
                                     </td>
                                     <td class="padded"></td>
                                   </tr>
@@ -416,8 +416,6 @@
                           </tbody>
                       </table>
                 
-                      <div class="spacer">&nbsp;</div>
-                
                       <table class="footer center" width="602" border="0" cellspacing="0" cellpadding="0">
                           <tbody style="padding-left:10px">
                           <tr>
@@ -429,11 +427,9 @@
                                     
                                       Transport Division,<br>
                                       University Of Kelaniya <br>
-                                      +0 (000) 00-00-00, John Doe<br>
-                                      </p>
-                                  <p>
                                       Support: <a class="strong" href="mailto:#" target="_blank">trp.uok@gmail.com</a>
-                                  </p>
+                                      </p>
+                                 
                               </td>
                  
                           </tr>
