@@ -1,5 +1,5 @@
 /node_modules
-config/database\.js
+
 config/gcpkey.json
 
 \.idea/workspace\.xml
