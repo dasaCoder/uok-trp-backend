@@ -105,6 +105,23 @@ router.post('/vehicle/maintenance/add', (req,res,next) => {
   });
 });
 
+// get list of vehicles on repair
+router.get('/vehicle/maintenance/get', (req,res,next) => {
+  Vehicle.getVehicleListOnRepair((err,callback)=>{
+    if(err){
+      res.json({
+        success: false,
+        msg: callback
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: callback
+      });
+    }
+  })
+})
+
 router.post('/driver',(req,res,next)=>{
   let newDriver = new Driver(req.body);
   Driver.addDriver(newDriver , (err,callback) => {

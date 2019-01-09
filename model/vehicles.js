@@ -58,43 +58,50 @@ module.exports.getVehicleListOnRepair = function (callback) {
 
 // add maintenance details
 module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
-  //console.log(details);
-  details['_id'] = mongoose.Types.ObjectId(); // generate _id
 
-  // generate dummy request for maintenance
-  let dummyReq = new Request(
-    {
-      "status":"100",
-      "purpose":"maintenance",
-      "departure":details['departure'],
-      "arrival":details['arrival'],
-      "vehicle":vehicle_id
-    }
+  let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
+
+  Vehicle.findOneAndUpdate(
+      {'_id':vehicle_id},
+      {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+     callback
   );
+  //console.log(details);
+  // details['_id'] = mongoose.Types.ObjectId(); // generate _id
+  // // generate dummy request for maintenance
+  // let dummyReq = new Request(
+  //   {
+  //     "status":"100",
+  //     "purpose":"maintenance",
+  //     "departure":details['departure'],
+  //     "arrival":details['arrival'],
+  //     "vehicle":vehicle_id
+  //   }
+  // );
 
-  //console.log(dummyReq);
+  // //console.log(dummyReq);
 
-  dummyReq.save(function (err, data){
-    if(err){
-      return err;
-    }
-    else{
-      // get dummy requests refNo
-      details['dummyRefNo'] = data['refNo'];
+  // dummyReq.save(function (err, data){
+  //   if(err){
+  //     return err;
+  //   }
+  //   else{
+  //     // get dummy requests refNo
+  //     details['dummyRefNo'] = data['refNo'];
 
-      let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
-      // remove unwanted data
-        delete details['arrival'];
-        delete details['departure'];
-        delete details['status'];
+  //     let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
+  //     // remove unwanted data
+  //       delete details['arrival'];
+  //       delete details['departure'];
+  //       delete details['status'];
     
-      Vehicle.findOneAndUpdate(
-             {'_id':vehicle_id},
-              {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
-              callback
-                  );
-    }
-  });
+  //     Vehicle.findOneAndUpdate(
+  //            {'_id':vehicle_id},
+  //             {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+  //             callback
+  //                 );
+  //   }
+  // });
 
 
 }
