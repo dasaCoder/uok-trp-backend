@@ -90,6 +90,8 @@ router.post('/requests/update',(req,res,next) => {
 router.post('/vehicle/maintenance/add', (req,res,next) => {
   let vehicle_id = req.query._id;
 
+  console.log("repair details",req.body);
+
   Vehicle.addMaintenanceDetails(vehicle_id,req.body,(err, callback) => {
     if(err){
       res.json({

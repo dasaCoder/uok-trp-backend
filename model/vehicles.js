@@ -53,7 +53,7 @@ module.exports.getVehicleList = function (callback) {
 
 //return list of vehicles under maintenence
 module.exports.getVehicleListOnStatus = function (status, callback) {
-  Vehicle.find({'status':status},{'_id' : 0,'vehicle_no, _id' : 1},callback);
+  Vehicle.find({'status':status}, callback);
 }
 
 // add maintenance details
