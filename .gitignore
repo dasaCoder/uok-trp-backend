@@ -10,4 +10,5 @@ config/gcpkey.json
 
 \.idea/modules\.xml
 node_modules
+.env
 
