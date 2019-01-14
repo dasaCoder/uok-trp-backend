@@ -109,41 +109,42 @@ router.post('/vehicle/maintenance/add', (req,res,next) => {
 router.get('/vehicle/maintenance/get', (req,res,next) => {
 
   let status = req.query.status;
-// 100 -> good, 101-> need maintenence, 102-> under maintenence
+    // 100 -> good, 101-> need maintenence, 102-> under maintenence
 
-  switch(status) {
-    case "100":
-        // code
-        break;
-    case "101":
-        // code
-        break;
-    case "102":
-        // code
-        break;
-    default:
-        res.json({
-          success: false,
-          msg: "invalid status"
-        });
+      switch(status) {
+        case "100":
+            // code
+            break;
+        case "101":
+            // code
+            break;
+        case "102":
+            // code
+            break;
+        default:
+            res.json({
+              success: false,
+              msg: "invalid status"
+            });
 
-        return;
-  }
+            return;
+      }
 
-  Vehicle.getVehicleListOnStatus(status, (err,callback)=>{
-    if(err){
-      res.json({
-        success: false,
-        msg: callback
-      });
-    }else{
-      res.json({
-        success: true,
-        msg: callback
-      });
-    }
-  })
-})
+      Vehicle.getVehicleListOnStatus(status, (err,callback)=>{
+        if(err){
+          res.json({
+            success: false,
+            msg: callback
+          });
+        }else{
+          res.json({
+            success: true,
+            msg: callback
+          });
+        }
+      })
+});
+
 
 router.post('/driver',(req,res,next)=>{
   let newDriver = new Driver(req.body);

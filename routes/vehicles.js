@@ -6,6 +6,25 @@ const jwt = require('jsonwebtoken');
 
 const Vehicle = require('../model/vehicles');
 
+// update vehicle status
+router.post('/update/status', (req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.updateStatus(_id, req.body.status, (err,callback) => {
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  })
+})
+
+
 router.get('/day', (req,res,next)=>{
   res.send('today vehcle list');
 });

@@ -61,7 +61,7 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
   
   let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
   details['_id'] = mongoose.Types.ObjectId(); // generate _id
-  
+
   Vehicle.findOneAndUpdate(
                         {'_id':vehicle_id},
                         {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
@@ -108,7 +108,14 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
 
 }
 
-
+// update vehicle status
+module.exports.updateStatus = function(_id, status, callback) {
+  Vehicle.findOneAndUpdate(
+    { '_id':_id },
+    { 'status':status },
+    callback
+  )
+}
 module.exports.getVehicleByNo = function(vehicle_no, callback) {
   Vehicle.find({'vehicle_no':vehicle_no},callback);
 }
