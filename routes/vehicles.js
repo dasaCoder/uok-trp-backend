@@ -25,7 +25,7 @@ router.post('/update/status', (req,res,next) => {
 });
 
 // load repair history for given vehicle
-router.get('/repair/get',(req,res,next) => {
+router.get('/maintenance/single/get',(req,res,next) => {
   _id = req.query._id;
 
   Vehicle.getVehicleRepairHistory(_id,(err, callback)=>{
@@ -40,6 +40,24 @@ router.get('/repair/get',(req,res,next) => {
         })
       }
   })
+});
+
+// change vehicle maintenence details
+router.post('/maintenance/update', (req,res,next) => {
+  _id = req.query.id;
+
+  Vehicle.updateRepairRecord(_id, req.body, (err, callback) =>{
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  });
 });
 
 

@@ -107,6 +107,15 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
 
 }
 
+// update vehicle repari details
+module.exports.updateRepairRecord = function( _id, newRec, callback) {
+  Vehicle.updateOne(
+    {'_id':_id, 'status_info._id': newRec._id},
+    { '$set': {'status_info.$': newRec }},
+    callback
+  );
+}
+
 // load repair history for given vehicle
 module.exports.getVehicleRepairHistory = function(_id,callback) {
   Vehicle.findById(_id, callback);
@@ -120,6 +129,7 @@ module.exports.updateStatus = function(_id, status, callback) {
     callback
   )
 }
+
 module.exports.getVehicleByNo = function(vehicle_no, callback) {
   Vehicle.find({'vehicle_no':vehicle_no},callback);
 }
