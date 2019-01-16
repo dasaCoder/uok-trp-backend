@@ -22,7 +22,25 @@ router.post('/update/status', (req,res,next) => {
       })
     }
   })
-})
+});
+
+// load repair history for given vehicle
+router.get('/repair/get',(req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.getVehicleRepairHistory(_id,(err, callback)=>{
+      if(err){
+        res.json({
+          success: false, msg: err
+        });
+      }else {
+        res.json({
+          success: true,
+          msg: callback
+        })
+      }
+  })
+});
 
 
 router.get('/day', (req,res,next)=>{
