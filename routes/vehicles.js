@@ -44,7 +44,7 @@ router.get('/maintenance/single/get',(req,res,next) => {
 
 // change vehicle maintenence details
 router.post('/maintenance/update', (req,res,next) => {
-  _id = req.query.id;
+  _id = req.query._id;
 
   Vehicle.updateRepairRecord(_id, req.body, (err, callback) =>{
     if(err){
