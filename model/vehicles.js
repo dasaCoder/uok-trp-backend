@@ -127,6 +127,28 @@ module.exports.updateRepairRecord = function( _id, newRec, callback) {
   );
 }
 
+// check whether vehicle has any repairing work to do
+module.exports.checkUnfinishedRepairs = function(_id, status) {
+    // if given repiai is done
+  // then this will chekc whether their are any repairs left
+  if(status) {
+    Vehicle.countDocuments(
+                          {'_id':_id, 'status_info.isFinished':false}
+                        ).then(count=>{
+                          console.log(count);
+
+                          if(count == 0) {
+                            console.log("equual");
+                            Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 100}, {});
+                          }
+                        } );
+    }
+    else {
+      console.log("not zero")
+      Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 102}); // vehicle should be under maintenece, if there even one repair work -> if user re-activate the repair work
+    }
+}
+
 // load repair history for given vehicle
 module.exports.getVehicleRepairHistory = function(_id,callback) {
   Vehicle.findById(_id, callback);

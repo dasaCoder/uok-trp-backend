@@ -52,6 +52,9 @@ router.post('/maintenance/update', (req,res,next) => {
         success: false, msg: err
       });
     }else {
+      
+      Vehicle.checkUnfinishedRepairs(_id, req.body.isFinished);
+
       res.json({
         success: true,
         msg: callback
@@ -60,6 +63,24 @@ router.post('/maintenance/update', (req,res,next) => {
   });
 });
 
+// test purposes
+router.get('/test',(req,res,next) =>{
+
+  _id = req.query._id;
+
+  Vehicle.checkUnfinishedRepairs(_id, (err, callback) => {
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  })
+})
 
 router.get('/day', (req,res,next)=>{
   res.send('today vehcle list');
