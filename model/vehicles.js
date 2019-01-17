@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var ObjectId = require('mongoose').Types.ObjectId; 
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config/database');
 const Request = require('./requests');
@@ -111,8 +112,16 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
 module.exports.updateRepairRecord = function( _id, newRec, callback) {
   console.log(_id);
   Vehicle.updateOne(
-    {'_id':_id, 'status_info._id': newRec._id},
-    { '$set': {'status_info.$': newRec }},
+    {'_id':_id, 'status_info._id': new ObjectId(newRec._id)},
+    { '$set': {
+                'status_info.$.reason': newRec.reason,
+                'status_info.$.cost': newRec.cost,
+                'status_info.$.shop': newRec.shop,
+                'status_info.$.arrival': newRec.arrival,
+                'status_info.$.departure': newRec.departure,
+                'status_info.$.file_no': newRec.file_no
+              }},
+    {'new':true},
     callback
   );
 }
