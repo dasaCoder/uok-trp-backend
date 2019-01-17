@@ -110,7 +110,7 @@ module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
 
 // update vehicle repari details
 module.exports.updateRepairRecord = function( _id, newRec, callback) {
-  console.log(_id);
+  
   Vehicle.updateOne(
     {'_id':_id, 'status_info._id': new ObjectId(newRec._id)},
     { '$set': {
@@ -119,7 +119,8 @@ module.exports.updateRepairRecord = function( _id, newRec, callback) {
                 'status_info.$.shop': newRec.shop,
                 'status_info.$.arrival': newRec.arrival,
                 'status_info.$.departure': newRec.departure,
-                'status_info.$.file_no': newRec.file_no
+                'status_info.$.file_no': newRec.file_no,
+                'status_info.$.isFinished': newRec.isFinished
               }},
     {'new':true},
     callback
