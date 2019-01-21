@@ -139,7 +139,13 @@ module.exports.checkUnfinishedRepairs = function(_id, status) {
 
                           if(count == 0) {
                             console.log("equual");
-                            Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 100}, {});
+                            Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 100}, function(err,res) {
+                              if(err) {
+                                console.log(err);
+                                return;
+                              }
+                              console.log(res);
+                            });
                           }
                         } );
     }
