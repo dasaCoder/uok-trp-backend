@@ -412,7 +412,7 @@ module.exports.getRequestOnDay = function (date1, callback ) {
   let query = {'departure.pickupDate':{$gte:date_,$lt:nextDate}};
   console.log(query);
   Request.find(query)
-          .sort({"departure.pickupTime":1},callback);
+          .sort({"departure.pickupTime":1}).limit(100,callback);
 }
 
 module.exports.getRequestsHasVehicleOnDay = function (date,callback) {
