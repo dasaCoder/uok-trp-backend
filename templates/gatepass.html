@@ -1,0 +1,443 @@
+
+        <style>
+            html, body {
+                    margin: -110px -165px;
+                    padding: 0;
+                    -webkit-print-color-adjust: exact;
+                    box-sizing: border-box;
+                    font-size: 12px;
+                }
+            body {
+                width: 20cm;
+                height: 14.5cm;
+                margin: 30mm 45mm 30mm 45mm; 
+            
+                mso-line-height-rule: exactly;
+            /* change the margins as you want them to be. */
+                }
+
+                table{
+                    font-size: 7pt;
+                }
+
+                td:first-child{
+                width:3cm;
+                }
+
+                /* table td+td{
+                border-bottom:dotted 1px;
+                margin-right:20px
+                } */
+
+
+
+                .wrapper {
+                    display: table;
+                    table-layout: fixed;
+                    width: 100%;
+                    min-width: 620px;
+                    -webkit-text-size-adjust: 100%;
+                    -ms-text-size-adjust: 100%;
+                }
+
+
+
+                /* Basic */
+                table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                }
+                table.center {
+                    margin: 0 auto;
+                    width: 20cm;
+                }
+                td {
+                    padding: 0;
+                    vertical-align: top;
+                }
+
+                .spacer,
+                .border {
+                    font-size: 1px;
+                    line-height: 1px;
+                }
+                .spacer {
+                    width: 100%;
+                    line-height: 16px
+                }
+                .border {
+                    background-color: #e0e0e0;
+                    width: 1px;
+                }
+
+                .padded {
+                    padding: 8px 24px;
+                }
+
+                .padded-sign {
+                
+                    padding: 2px 35px;
+                }
+                img {
+                    border: 0;
+                    -ms-interpolation-mode: bicubic;
+                }
+                .image {
+                    font-size: 12px;
+                }
+                .image img {
+                    display: block;
+                }
+                strong, .strong {
+                    font-weight: 700;
+                }
+                h1,
+                h2,
+                h3,
+                p,
+                ol,
+                ul,
+                li {
+                    margin-top: 0;
+                }
+                ol,
+                ul,
+                li {
+                    padding-left: 0;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #616161;
+                }
+                .btn {
+                    background-color:#63BA3C;
+                    border:1px solid #63BA3C;
+                    border-radius:2px;
+                    color:#ffffff;
+                    display:inline-block;
+                    font-family:Roboto, Helvetica, sans-serif;
+                    font-size:14px;
+                    font-weight:400;
+                    line-height:36px;
+                    text-align:center;
+                    text-decoration:none;
+                    text-transform:uppercase;
+                    width:200px;
+                    height: 36px;
+                    padding: 0 8px;
+                    margin: 0;
+                    outline: 0;
+                    outline-offset: 0;
+                    -webkit-text-size-adjust:none;
+                    mso-hide:all;
+                }
+
+                /* Top panel */
+                .title {
+                    text-align: left;
+                }
+
+                .subject {
+                    text-align: right;
+                }
+
+                .title, .subject {
+                    vertical-align:middle;
+                    width: 9.5cm;
+                    padding: 15px 15px;
+                    color: Black;
+                    font-family: Roboto, Helvetica, sans-serif;
+                    font-weight: 400;
+                    font-size: 11.5pt;
+                    line-height: 8px;
+                }
+
+                /* Header */
+                .logo {
+                    padding: 16px 0;
+                }
+
+                /* Logo */
+                .logo-image {
+
+                }
+
+                /* Main */
+                .main {
+                    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+                    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+                }
+
+                /* Content */
+                .columns {
+                    margin: 0 auto;
+                    width: 600px;
+                    background-color: #ffffff;
+                    font-size: 14px;
+                }
+
+                .column {
+                    text-align: left;
+                    background-color: #ffffff;
+                    font-size: 10pt;
+                }
+
+                .column-top {
+                    font-size: 12pt;
+                    line-height: 24px;
+                }
+
+                .content {
+                    width: 100%;
+                }
+
+                .column-bottom {
+                    font-size: 8px;
+                    line-height: 8px;
+                }
+
+                .content h1 {
+                    margin-top: 0;
+                    margin-bottom: 16px;
+                    color: #212121;
+                    font-family: Roboto, Helvetica, sans-serif;
+                    font-weight: 400;
+                    font-size: 11pt;
+                    line-height: 28px;
+                }
+
+                .content p {
+                    margin-top: 0;
+                    margin-bottom: 16px;
+                    color: #212121;
+                    font-family: Roboto, Helvetica, sans-serif;
+                    font-weight: 400;
+                    font-size: 9pt;
+                    line-height: 24px;
+                }
+                .content .caption {
+                    color: #616161;
+                    font-size: 9pt;
+                    line-height: 20px;
+                }
+
+                /* Footer */
+                .signature, .subscription {
+                    vertical-align: bottom;
+                    width: 300px;
+                    padding-top: 8px;
+                    margin-bottom: 10px;
+                }
+
+                .signature {
+                    text-align: left;
+                }
+                .subscription {
+                    text-align: right;
+                }
+
+                .signature p, .subscription p {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    color: #616161;
+                    font-family: Roboto, Helvetica, sans-serif;
+                    font-weight: 400;
+                    font-size: 7pt;
+                    line-height: 18px;
+                }
+                
+                .mail-ul{
+                    font-family: Roboto, Helvetica, sans-serif;
+                }
+
+        </style>
+    
+    <body>
+            <div class="page">
+                    <div class="wrapper">
+                      <table class="top-panel center" width="602" border="0" cellspacing="0" cellpadding="0">
+                          <tbody>
+                          <tr>
+                            <br>
+                              <td><img src="https://i.ibb.co/0hjnWbB/220px-Kelaniya.png" alt="220px-Kelaniya" style="padding-top: 15px;height:60px;float:right" border="0"></td>
+                              <td class="title" width="300"><div class="title">Transport Division</div>
+                                <div class="title" style="    font-size: 9pt;
+                    padding-top: 0px;
+                   ">
+                                  University of Kelaniya - Kelaniya
+                                </div>
+                            </td>
+                             
+                          </tr>
+                            
+                         
+                            
+                          </tbody>
+                      </table>
+                
+                      <div style="text-align:center;font-size: 9.9pt;width: 15cm">
+                          <p>
+                            Gate Pass</p>
+                            <hr>
+                      </div>
+                      <div class="spacer">&nbsp;</div>
+                
+                      <table class="main center" width="602" border="0" cellspacing="0" cellpadding="0">
+                          <tbody>
+                            
+                          <tr>
+                              <td class="column" style="padding: 0 10px 0 10px;">
+                                  <div class="column-top">&nbsp;</div>
+                                  <table class="content" border="0" cellspacing="0" cellpadding="0">
+                                      <tbody>
+                                      <tr>
+                                      </tr>
+                                    <tr>
+                                                <td class="padded">
+                                                  Vehicle No.
+                                                </td>
+                                                <td class="padded">
+                                                  TRD/{{refNo}}
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="padded">
+                                                  Driver's Name
+                                                </td>
+                                                <td class="padded">
+                                                {{driver}}
+                                                </td>
+                                              </tr>
+                                                                      
+                                                                      <tr>
+                                                <td class="padded">
+                                                  Faculty / Department
+                                                </td>
+                                                <td class="padded">
+                                                {{dep_unit}}
+                                                </td>
+                                              </tr>
+                
+                                      </tbody>
+                                  </table>
+
+                                  <table class="content" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                      <tr>
+                                        <td class="padded">
+                                          vehicle mentioned above is currently assigned to official purpose.  So, Please give<br>
+                                          it the permission to leave the university premises.
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                    <table  class="content" border="0" cellspacing="0" cellpadding="0" style="width:15cm">
+                                        <tr>
+                                          <td class="padded">
+                                            Starting point
+                                          </td>
+                
+                                          <td class="padded">
+                                          {{departure_pickPointAddress}}
+                                          </td>
+                                        </tr>
+                
+                                        <tr>
+                                          <td class="padded">
+                                            Destination
+                                          </td>
+                
+                                          <td class="padded">
+                                         {{departure_dropPointAddress}}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="padded">
+                                            Date of departure
+                                          </td>
+                
+                                          <td class="padded" style="width:2cm">
+                                          {{departure_pickupDate}} : {{departure_pickupTime}}
+                                          </td>
+                
+                                          <!-- <td class="padded">Time</td>
+                                          <td class="padded">${this.request.departure.pickupTime}</td> -->
+                
+                
+                                        </tr>
+                
+                                        <tr>
+                                          <td class="padded" style="width:2cm">Date of arrival</td>
+                                          <td class="padded">{{arrival_dropDate}} : {{arrival_dropTime}}</td>
+                                          <!-- <td class="padded">Time</td>
+                                          <td class="padded">${this.request.arrival.dropTime}</td> -->
+                
+                
+                                        </tr>
+                
+                                        <tr>
+                                          <td class="padded">Reason</td>
+                                          <td class="padded">{{purpose}}</td>
+                                        </tr>
+                               
+                                  </table>
+                                <hr>
+                                <table class="content" border="0" cellspacing="0" cellpadding="0" style="width: 17cm;">
+                                  <tr>
+                                    <br><br><br>
+                                    <td class="padded">
+                                      .................................
+                                    </td>
+                                     <td class="padded">
+                                      .................................
+                                    </td>
+                                     <td class="padded">
+                                      .................................
+                                    </td>
+                                    <td class="padded"></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="padded-sign">
+                                      Applicant's signature
+                                    </td>
+                                     <td class="padded-sign">
+                                      Dean/ Unit head
+                                    </td>
+                                     <td class="padded-sign">
+                                      Date
+                                    </td>
+                                    <td class="padded-sign"></td>
+                                  </tr>
+                                  
+                                </table>
+                                <br>
+                                  <div class="column-bottom">&nbsp;</div>
+                              </td>
+                          </tr>
+                          </tbody>
+                      </table>
+                
+                      <table class="footer center" width="602" border="0" cellspacing="0" cellpadding="0">
+                          <tbody style="padding-left:10px">
+                          <tr>
+                              <td class="border" colspan="2">&nbsp;</td>
+                          </tr>
+                          <tr>
+                              <td class="signature" width="300" style="padding-left:20px">
+                                  <p>
+                                    
+                                      Transport Division,<br>
+                                      University Of Kelaniya <br>
+                                      Support: <a class="strong" href="mailto:#" target="_blank">trp.uok@gmail.com</a>
+                                      </p>
+                                 
+                              </td>
+                 
+                          </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                </div>
