@@ -191,7 +191,7 @@ module.exports.addVehicle = function (newVehicle, callback) {
 }
 
 module.exports.get_vehicle_list = function(callback){
-  Vehicle.find({},'vehicle_no vehicle_type',callback).populate({path: 'driver', select:'name'});
+  Vehicle.find({},'vehicle_no vehicle_type status',callback).populate({path: 'driver', select:'name'});
 }
 
 module.exports.get_admin_to_reqeust = function (callback) {
