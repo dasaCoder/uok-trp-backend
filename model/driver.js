@@ -44,7 +44,7 @@ module.exports.addDriver = function (newDriver , callback) {
 }
 
 module.exports.getDrivers = function(callback){
-  Driver.find({},{'_id' : 0,'name' : 1},callback);
+  Driver.find({'is_deleted':{$in:[false, undefined]}},{'_id' : 0,'name' : 1},callback);
 }
 
 module.exports.getDriver = function(_id,callback) {
