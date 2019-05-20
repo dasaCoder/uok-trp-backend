@@ -11,3 +11,9 @@ config/gcpkey.json
 \.idea/modules\.xml
 node_modules
 
+
+54\.pdf
+
+config/database\.js
+
+google-credentials-heroku\.json
