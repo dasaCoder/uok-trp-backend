@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 
 app.use('/vehicles',vehicles);
 app.use('/requests',requests);
-app.use('/admin',authAdmin,admin);
+app.use('/admin',admin);
 
 app.get('/', (req,res)=>{
   res.send("home page");

@@ -24,6 +24,14 @@ const DriverSchema = mongoose.Schema({
   address: {
     type: String,
     require: true
+  },
+  is_deleted:{
+    type: Boolean,
+    require: false
+  },
+  deleted_date: {
+    type: String,
+    require: false
   }
   /*duties: []*/
 
@@ -45,6 +53,21 @@ module.exports.getDriver = function(_id,callback) {
 
 module.exports.getAllDriverDetails = function (callback) {
   Driver.find({},callback);
+}
+
+
+// remove driver 
+// soft delete
+module.exports.deleteDriver = function (driverId, callback) {
+  //let query = { _id : driverId};
+  Driver.findByIdAndUpdate(driverId, { 
+    $set: {
+              is_deleted: true,
+              deleted_date: new Date()
+            
+            }
+          }, 
+  callback)
 }
 
 

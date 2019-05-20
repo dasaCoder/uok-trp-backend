@@ -7,6 +7,38 @@ const Driver = require('../model/driver');
 const Vehicle = require('../model/vehicles');
 const Request = require('../model/requests');
 
+
+/**
+ * @api {post} /driver/remove Remove a driver from the system (soft delete)
+ * @apiName RemoveDriver
+ * 
+ * @apiParam {string} driverId Drivers unique ID
+ * @apiSuccessExample Success-Response:
+ * {
+ *    "success" : "true",
+ *    "msg" : "Driver removed"
+ * }
+ * -
+ * @apiError DriverNotFound The id of the Driver was not found.
+ */
+router.post('/drivers/remove',(req,res,next)=> {
+  let driverId = req.body.driverId;
+console.log(driverId);
+  Driver.deleteDriver(driverId, (err,callback) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: callback
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: callback
+      });
+    }
+  })
+});
+
 //get request on status
 router.get('/requests/status',(req,res,next)=>{
   
