@@ -6,7 +6,37 @@ const jwt = require('jsonwebtoken');
 const Driver = require('../model/driver');
 const Vehicle = require('../model/vehicles');
 const Request = require('../model/requests');
+const Admin = require('../model/admin');
 
+/**
+ * @api {post} /admin add new admin to the system
+ * @apiName AddAdmin
+ * 
+ * @apiParam {string} driverId Drivers unique ID
+ * @apiSuccessExample Success-Response:
+ * {
+ *    "success" : "true",
+ *    "msg" : { username : '', password: '', _id : ''}
+ * }
+ * -
+ * @apiError Admin not created
+ */
+router.post('/admin', (req,res,next) => {
+  let admin = new Admin(req.body);
+  Admin.createAdmin(admin , (err,callback) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: 'error occured'
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: callback
+      });
+    }
+  }); 
+})
 
 /**
  * @api {post} /driver/remove Remove a driver from the system (soft delete)
