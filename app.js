@@ -43,6 +43,7 @@ app.use('/admin',admin);
 app.get('/', (req,res)=>{
   res.send("home page");
 });
+
 app.post('/login', (req,res) => {
   let userN = {
     username: req.body.username,
@@ -72,6 +73,8 @@ app.post('/login', (req,res) => {
   })
 
 });
+
+
 app.listen(process.env.PORT || 5000 , ()=>{
   console.log('server start on port '+ port);
 })

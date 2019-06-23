@@ -12,7 +12,7 @@ const Admin = require('../model/admin');
  * @api {post} /admin add new admin to the system
  * @apiName AddAdmin
  * 
- * @apiParam {string} driverId Drivers unique ID
+ * @apiParam {string} username password role
  * @apiSuccessExample Success-Response:
  * {
  *    "success" : "true",
@@ -36,7 +36,40 @@ router.post('/admin', (req,res,next) => {
       });
     }
   }); 
-})
+});
+
+/**
+ * @api {post} /password/change change password of admin
+ * @apiName changeAdminPassword
+ * 
+ * @apiParam {string} username oldpassword newpassword
+ * @apiSuccessExample Success-Response:
+ * -
+ * @apiError Admin not created
+ */
+
+ router.post('/password/change', (req,res,next) => {
+   let adminUser = {
+     username: req.body.username,
+     oldPassword: req.body.oldPassword,
+     newPassword: req.body.newPassword
+   };
+
+
+   Admin.changePassword(adminUser, (err, response) => {
+    if(err){
+      res.json({
+        success: false,
+        msg: 'error occured'
+      });
+    }else{
+      res.json({
+        success: true,
+        msg: response
+      });
+    }
+   })
+ })
 
 /**
  * @api {post} /driver/remove Remove a driver from the system (soft delete)
