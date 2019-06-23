@@ -25,6 +25,9 @@ const vehicles = require('./routes/vehicles');
 const requests = require('./routes/request_routes');
 const admin = require('./routes/admin_routes');
 
+// models
+const AdminModel = require('./model/admin');
+
 const port = 3000;
 
 app.use(cors());
@@ -41,24 +44,32 @@ app.get('/', (req,res)=>{
   res.send("home page");
 });
 app.post('/login', (req,res) => {
-  const user = {
-    username: 'trp-admin',
-    password: 'trp-admin'
+  let userN = {
+    username: req.body.username,
+    password: req.body.password
   };
 
-  // match username and password
-  if(req.body.username == user.username && req.body.password == user.password){
+  AdminModel.findOne(userN, function(err,user) {
+    if(err) {
+      console.log(err);
+      return res.status(500).send();
+    }
+
+    if(!user) {
+      return res.send({
+                        msg: 'error in loggin',
+                        status: 403
+                      });
+    }
+
+    // if user exists
     let token = jwt.sign({user, isAdmin:true},'uok-trp',{ expiresIn:"10h" });
-    res.send({
-      token: token,
-      status: 200
-    });
-  } else {
-    res.send({
-      msg: 'error in loggin',
-      status: 403
-    });
-  }
+    return res.send({
+                      token: token,
+                      status: 200
+                    });
+
+  })
 
 });
 app.listen(process.env.PORT || 5000 , ()=>{
