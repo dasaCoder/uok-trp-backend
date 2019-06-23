@@ -32,6 +32,10 @@ const DriverSchema = mongoose.Schema({
   deleted_date: {
     type: String,
     require: false
+  },
+  password: {
+    type: String,
+    require: false
   }
   /*duties: []*/
 
@@ -41,6 +45,10 @@ let Driver = module.exports = mongoose.model('Driver', DriverSchema);
 
 module.exports.addDriver = function (newDriver , callback) {
   newDriver.save(callback);
+}
+
+module.exports.login = function(driver, callback) {
+  Driver.findOne(driver, callback);
 }
 
 module.exports.getDrivers = function(callback){

@@ -64,7 +64,7 @@ app.post('/login', (req,res) => {
     }
 
     // if user exists
-    let token = jwt.sign({user, isAdmin:true},'uok-trp',{ expiresIn:"10h" });
+    let token = jwt.sign({username: user.username, isAdmin:true, role: user.role},'uok-trp',{ expiresIn:"10h" });
     return res.send({
                       token: token,
                       status: 200

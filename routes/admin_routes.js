@@ -71,6 +71,7 @@ router.post('/admin', (req,res,next) => {
    })
  })
 
+
 /**
  * @api {post} /driver/remove Remove a driver from the system (soft delete)
  * @apiName RemoveDriver
@@ -101,6 +102,47 @@ console.log(driverId);
     }
   })
 });
+
+
+/**
+ * @api {post} /driver/login
+ * @apiName LoginDriver
+ * 
+ * @apiParam {string} driving_liecence_no password
+ * @apiSuccessExample Success-Response:
+ * {
+ *    "success" : "true",
+ * }
+ * -
+ * @apiError Driver login unsuccessfull
+ */
+router.post('/driver/login', (req,res,next) => {
+  let driver = {
+    driving_liecence_no: req.body.liecence,
+    password: req.body.password
+  };
+
+  Driver.login(driver, (err, driver) => {
+    if(err) {
+      console.log(err);
+      return res.status(500).send();
+    }
+
+    if(!driver) {
+      return res.send({
+                        msg: 'User Does not exists',
+                        status: 403
+                      });
+    }
+
+    // if user exists
+    let token = jwt.sign({username: driver.name, isAdmin:false, role: 'driver'},'uok-trp',{ expiresIn:"10h" });
+    return res.send({
+                      token: token,
+                      status: 200
+                    });
+  })
+})
 
 //get request on status
 router.get('/requests/status',(req,res,next)=>{
