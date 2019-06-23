@@ -48,7 +48,7 @@ app.post('/login', (req,res) => {
 
   // match username and password
   if(req.body.username == user.username && req.body.password == user.password){
-    let token = jwt.sign({user, isAdmin:true},'uok-trp',{ expiresIn: 60 * 60 });
+    let token = jwt.sign({user, isAdmin:true},'uok-trp',{ expiresIn:"10h" });
     res.send({
       token: token,
       status: 200

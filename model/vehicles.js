@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var ObjectId = require('mongoose').Types.ObjectId; 
 const bcrypt = require('bcrypt-nodejs');
 const config = require('../config/database');
 const Request = require('./requests');
@@ -52,53 +53,121 @@ module.exports.getVehicleList = function (callback) {
 }
 
 //return list of vehicles under maintenence
-module.exports.getVehicleListOnRepair = function (callback) {
-  Vehicle.find({'status':'102'},{'_id' : 0,'vehicle_no, _id' : 1},callback);
+module.exports.getVehicleListOnStatus = function (status, callback) {
+  Vehicle.find({'status':status}, callback);
 }
 
 // add maintenance details
 module.exports.addMaintenanceDetails = function(vehicle_id, details, callback) {
-  //console.log(details);
+
+  let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
   details['_id'] = mongoose.Types.ObjectId(); // generate _id
 
-  // generate dummy request for maintenance
-  let dummyReq = new Request(
-    {
-      "status":"100",
-      "purpose":"maintenance",
-      "departure":details['departure'],
-      "arrival":details['arrival'],
-      "vehicle":vehicle_id
-    }
+  Vehicle.findOneAndUpdate(
+      {'_id':vehicle_id},
+      {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+     callback
   );
+  //console.log(details);
+  // details['_id'] = mongoose.Types.ObjectId(); // generate _id
+  // // generate dummy request for maintenance
+  // let dummyReq = new Request(
+  //   {
+  //     "status":"100",
+  //     "purpose":"maintenance",
+  //     "departure":details['departure'],
+  //     "arrival":details['arrival'],
+  //     "vehicle":vehicle_id
+  //   }
+  // );
 
-  //console.log(dummyReq);
+  // //console.log(dummyReq);
 
-  dummyReq.save(function (err, data){
-    if(err){
-      return err;
-    }
-    else{
-      // get dummy requests refNo
-      details['dummyRefNo'] = data['refNo'];
+  // dummyReq.save(function (err, data){
+  //   if(err){
+  //     return err;
+  //   }
+  //   else{
+  //     // get dummy requests refNo
+  //     details['dummyRefNo'] = data['refNo'];
 
-      let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
-      // remove unwanted data
-        delete details['arrival'];
-        delete details['departure'];
-        delete details['status'];
+  //     let vehicleCurrentStatus = details['status']; // this will help when entering old maintenence data
+  //     // remove unwanted data
+  //       delete details['arrival'];
+  //       delete details['departure'];
+  //       delete details['status'];
     
-      Vehicle.findOneAndUpdate(
-             {'_id':vehicle_id},
-              {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
-              callback
-                  );
-    }
-  });
+  //     Vehicle.findOneAndUpdate(
+  //            {'_id':vehicle_id},
+  //             {'status':vehicleCurrentStatus,'$push':{'status_info':details}},
+  //             callback
+  //                 );
+  //   }
+  // });
 
 
 }
 
+// update vehicle repari details
+module.exports.updateRepairRecord = function( _id, newRec, callback) {
+  
+  Vehicle.updateOne(
+    {'_id':_id, 'status_info._id': new ObjectId(newRec._id)},
+    { '$set': {
+                'status_info.$.reason': newRec.reason,
+                'status_info.$.cost': newRec.cost,
+                'status_info.$.shop': newRec.shop,
+                'status_info.$.arrival': newRec.arrival,
+                'status_info.$.departure': newRec.departure,
+                'status_info.$.file_no': newRec.file_no,
+                'status_info.$.isFinished': newRec.isFinished
+              }},
+    {'new':true},
+    callback
+  );
+}
+
+// check whether vehicle has any repairing work to do
+module.exports.checkUnfinishedRepairs = function(_id, status) {
+    // if given repiai is done
+  // then this will chekc whether their are any repairs left
+  if(status) {
+    Vehicle.countDocuments(
+                          {'_id':_id, 'status_info.isFinished':false}
+                        ).then(count=>{
+                          console.log(count);
+
+                          if(count == 0) {
+                            console.log("equual");
+                            Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 100}, function(err,res) {
+                              if(err) {
+                                console.log(err);
+                                return;
+                              }
+                              console.log(res);
+                            });
+                          }
+                        } );
+    }
+    else {
+      console.log("not zero")
+      Vehicle.updateOne({'_id':new ObjectId(_id)}, {'status' : 102}); // vehicle should be under maintenece, if there even one repair work -> if user re-activate the repair work
+    }
+}
+
+// load repair history for given vehicle
+module.exports.getVehicleRepairHistory = function(_id,callback) {
+  Vehicle.findById(_id, callback);
+}
+
+// update vehicle status
+module.exports.updateStatus = function(_id, status, callback) {
+  Vehicle.findOneAndUpdate(
+    { '_id':_id },
+    { 'status':status },
+    callback
+  )
+}
 
 module.exports.getVehicleByNo = function(vehicle_no, callback) {
   Vehicle.find({'vehicle_no':vehicle_no},callback);
@@ -122,7 +191,7 @@ module.exports.addVehicle = function (newVehicle, callback) {
 }
 
 module.exports.get_vehicle_list = function(callback){
-  Vehicle.find({},'vehicle_no vehicle_type',callback).populate({path: 'driver', select:'name'});
+  Vehicle.find({},'vehicle_no vehicle_type status',callback).populate({path: 'driver', select:'name'});
 }
 
 module.exports.get_admin_to_reqeust = function (callback) {

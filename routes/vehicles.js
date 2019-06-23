@@ -6,6 +6,82 @@ const jwt = require('jsonwebtoken');
 
 const Vehicle = require('../model/vehicles');
 
+// update vehicle status
+router.post('/update/status', (req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.updateStatus(_id, req.body.status, (err,callback) => {
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  })
+});
+
+// load repair history for given vehicle
+router.get('/maintenance/single/get',(req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.getVehicleRepairHistory(_id,(err, callback)=>{
+      if(err){
+        res.json({
+          success: false, msg: err
+        });
+      }else {
+        res.json({
+          success: true,
+          msg: callback
+        })
+      }
+  })
+});
+
+// change vehicle maintenence details
+router.post('/maintenance/update', (req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.updateRepairRecord(_id, req.body, (err, callback) =>{
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      
+      Vehicle.checkUnfinishedRepairs(_id, req.body.isFinished);
+
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  });
+});
+
+// test purposes
+router.get('/test',(req,res,next) =>{
+
+  _id = req.query._id;
+
+  Vehicle.checkUnfinishedRepairs(_id, (err, callback) => {
+    if(err){
+      res.json({
+        success: false, msg: err
+      });
+    }else {
+      res.json({
+        success: true,
+        msg: callback
+      })
+    }
+  })
+})
+
 router.get('/day', (req,res,next)=>{
   res.send('today vehcle list');
 });

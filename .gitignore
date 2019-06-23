@@ -10,7 +10,9 @@ config/gcpkey.json
 
 \.idea/modules\.xml
 node_modules
+.env
 
+config/database.js
 
 54\.pdf
 
