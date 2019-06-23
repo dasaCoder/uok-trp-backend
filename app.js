@@ -57,7 +57,7 @@ app.post('/login', (req,res) => {
 
     if(!user) {
       return res.send({
-                        msg: 'error in loggin',
+                        msg: 'User Does not exists',
                         status: 403
                       });
     }
