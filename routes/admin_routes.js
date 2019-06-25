@@ -136,7 +136,7 @@ router.post('/driver/login', (req,res,next) => {
     }
 
     // if user exists
-    let token = jwt.sign({username: driver.name, isAdmin:false, role: 'driver'},'uok-trp',{ expiresIn:"10h" });
+    let token = jwt.sign({username: driver.name, isAdmin:false, role: 'driver',_id: driver._id},'uok-trp',{ expiresIn:"10h" });
     return res.send({
                       token: token,
                       status: 200
