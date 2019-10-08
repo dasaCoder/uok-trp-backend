@@ -63,6 +63,26 @@ router.post('/maintenance/update', (req,res,next) => {
   });
 });
 
+// get available vehicles for given requests
+router.get('/suggestions',(req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.getSuggestions(_id,(e,c) => {
+    if(e) {
+      res.json({
+        success: false, msg: e
+      });
+    }
+    else {
+      console.log("c",c);
+      res.json({
+        success : true,
+        msg: c
+      })
+    }
+  })
+});
+
 // test purposes
 router.get('/test',(req,res,next) =>{
 
@@ -80,7 +100,7 @@ router.get('/test',(req,res,next) =>{
       })
     }
   })
-})
+});
 
 router.get('/day', (req,res,next)=>{
   res.send('today vehcle list');

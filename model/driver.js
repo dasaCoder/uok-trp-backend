@@ -78,6 +78,49 @@ module.exports.deleteDriver = function (driverId, callback) {
   callback)
 }
 
+// get suggestions
+module.exports.getSuggestions = function(refNo, callback) {
+
+  Request.find({'refNo':refNo})
+    .exec((e, request) => {
+      //console.log("request",request);
+      if(e) {
+
+        callback(e,null);
+
+      } else {
+
+        let startDate = request[0]['departure']['pickupDate'];
+        let endDate = request[0]['arrival']['dropDate'];
+
+        Request.find({$or: [ {'departure.pickupDate':startDate},{'arrival.dropDate': startDate}]})
+            .populate('driver')
+            .exec((e1, reqs) => {
+              //console.log("request",request);
+              if(e1) {
+        
+                callback(e1,null);
+        
+              } else {
+                //console.log("requessts ",reqs);
+                let vehicleList = [];
+                for(let x =0; x < reqs.length; x++) {
+                  if(reqs[x]['driver']){
+                    vehicleList[x] = reqs[x]['driver']['_id'];
+                  }
+                  else{
+                    //x--;
+                  }
+                }
+
+                callback(null, vehicleList);
+              }
+            });
+
+        
+      }
+    });
+}
 
 
 

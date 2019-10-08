@@ -204,7 +204,27 @@ router.post('/getStatus', (req,res,next) => {
       }
     }
   })
-})
+});
+
+// get available drivers for given requests
+router.get('/driver/suggestions',(req,res,next) => {
+  _id = req.query._id;
+
+  Vehicle.getSuggestions(_id,(e,c) => {
+    if(e) {
+      res.json({
+        success: false, msg: e
+      });
+    }
+    else {
+      console.log("c",c);
+      res.json({
+        success : true,
+        msg: c
+      })
+    }
+  })
+});
 
 router.get('/test',(req,res,next) => {
   let refNo = 54;

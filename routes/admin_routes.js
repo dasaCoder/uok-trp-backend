@@ -501,7 +501,7 @@ router.get('/get_vehicle_list', (req,res,next) => {
 
 router.post('/addVehicle',(req,res,next)=>{
     let newVehicle = new Vehicle(req.body);
-    console.log(req);
+    //console.log(req);
   Vehicle.addVehicle(newVehicle,(err, callback) =>{
     if(err){
       res.json({
