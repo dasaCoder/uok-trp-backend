@@ -11,7 +11,6 @@ const Request = require('../model/requests');
 
 var fs = require('fs');
 
-
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -19,7 +18,6 @@ var transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD
   }
 });
-
 
 router.post('/add',(req,res,next)=>{
 
@@ -202,26 +200,6 @@ router.post('/getStatus', (req,res,next) => {
           success: true, isLogged: 1, token: token
         });
       }
-    }
-  })
-});
-
-// get available drivers for given requests
-router.get('/driver/suggestions',(req,res,next) => {
-  _id = req.query._id;
-
-  Vehicle.getSuggestions(_id,(e,c) => {
-    if(e) {
-      res.json({
-        success: false, msg: e
-      });
-    }
-    else {
-      console.log("c",c);
-      res.json({
-        success : true,
-        msg: c
-      })
     }
   })
 });

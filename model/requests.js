@@ -100,6 +100,49 @@ module.exports.getRequestsOfVehicle = function(_id, callback) {
   Request.find(query,callback).populate('driver');
 }
 
+// get suggestions
+module.exports.getDriverSuggestions = function(refNo, callback) {
+  Request.find({'refNo':refNo})
+    .exec((e, request) => {
+      //console.log("request",request);
+      if(e) {
+
+        callback(e,null);
+
+      } else {
+
+        let startDate = request[0]['departure']['pickupDate'];
+        let endDate = request[0]['arrival']['dropDate'];
+
+        Request.find({$or: [ {'departure.pickupDate':startDate},{'arrival.dropDate': startDate}]})
+            .populate('driver')
+            .exec((e1, reqs) => {
+              //console.log("request",request);
+              if(e1) {
+                console.log("e",e1);
+                callback(e1,null);
+        
+              } else {
+                //console.log("requessts ",reqs);
+                let vehicleList = [];
+                for(let x =0; x < reqs.length; x++) {
+                  if(reqs[x]['driver']){
+                    vehicleList[x] = reqs[x]['driver']['_id'];
+                  }
+                  else{
+                    //x--;
+                  }
+                }
+                console.log("vehicle list",vehicleList);
+                callback(null, vehicleList);
+              }
+            });
+
+        
+      }
+    });
+}
+
 
 module.exports.get_req_list = function (refNo, callback) {
   Request.find({'status': refNo},'refNo',callback);

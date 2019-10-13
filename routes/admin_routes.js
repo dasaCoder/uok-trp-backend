@@ -330,7 +330,27 @@ router.get('/driver/get',(req,res,next)=> {
       })
     }
   })
-})
+});
+
+// get available drivers for given requests
+router.get('/drivers/suggestions',(req,res,next) => {
+  _id = req.query._id;
+
+  Request.getDriverSuggestions(_id,(e,c) => {
+    if(e) {
+      res.json({
+        success: false, msg: e
+      });
+    }
+    else {
+      console.log("c",c);
+      res.json({
+        success : true,
+        msg: c
+      })
+    }
+  })
+});
 
 router.get('/vehicle/admin_to_request',(req,res,next)=>{
   Vehicle.get_admin_to_reqeust((err,callback)=>{
