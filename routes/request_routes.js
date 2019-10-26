@@ -57,21 +57,15 @@ router.post('/add',(req,res,next)=>{
 
 });
 
-router.get('/get_not_considered_requests',(req,res,next) => {
-  Request.get_not_considered_requests((err,callback)=>{
-    if(err){
-      res.json({
-        success: false, msg: 'error occured'
-      })
-    }else{
-      res.json({
-        success: true,
-        msg: callback['data']
-      })
-    }
-  })
-});
-
+/**
+ * @api {get} /request/get/:refNo
+ * @apiName getRequest
+ * 
+ * @apiParam {string} refNo 
+ * @apiSuccessExample Success-Response: Reqeust array
+ * -
+ * @apiError Error occured
+ */
 router.get('/get/:refNo',(req,res,next)=> {
   Request.get_request(req.params.refNo, (err,callback)=> {
     if(err){
@@ -86,6 +80,15 @@ router.get('/get/:refNo',(req,res,next)=> {
   } )
 });
 
+/**
+ * @api {get} /get_for_user/:refNo/:password
+ * @apiName getRequest Details
+ * 
+ * @apiParam {string} refNo password
+ * @apiSuccessExample Success-Response: Reqeust object
+ * -
+ * @apiError Error occured
+ */
 router.get('/get_for_user/:refNo/:password',(req,res,next)=> {
   // console.log(req.params);
   Request.get_req_for_user(req.params, (err,callback)=> {
@@ -118,6 +121,15 @@ router.get('/get_for_user/:refNo/:password',(req,res,next)=> {
   } )
 });
 
+/**
+ * @api {get} /setDriver/:refNo
+ * @apiName setDriver for request
+ * 
+ * @apiParam {string} refNo ddriverId
+ * @apiSuccessExample Success-Response: Driver added successfully
+ * -
+ * @apiError Error occured
+ */
 router.get('/setDriver/:refNo',(req,res,next) => {
   Request.setDriver(req.params.refNo,'mr. Gihan ekanayaka',(err,callback) => {
     if(err){
@@ -132,6 +144,15 @@ router.get('/setDriver/:refNo',(req,res,next) => {
   })
 });
 
+/**
+ * @api {get} /status/:refNo/:status
+ * @apiName change status of the request
+ * 
+ * @apiParam {string} refNo status
+ * @apiSuccessExample Success-Response: Status changed successfully
+ * -
+ * @apiError Error occured
+ */
 router.get('/status/:refNo/:status',(req,res,next) => {
   Request.change_status(req.params.refNo, req.params.status, (err, callback) => {
     if(err){
@@ -154,6 +175,15 @@ router.get('/status/:refNo/:status',(req,res,next) => {
   });
 });
 
+/**
+ * @api {get} /more_details
+ * @apiName add more details of the request
+ * 
+ * @apiParam {string} refNo lecturer object
+ * @apiSuccessExample Success-Response: Reqeust array
+ * -
+ * @apiError Error occured
+ */
 router.post('/more_details', (req,res,next) => {
 
   Request.set_moredetails(req.body, (err, callback ) => {
@@ -166,6 +196,30 @@ router.post('/more_details', (req,res,next) => {
 
       res.json({
         success: true, msg: callback
+      })
+    }
+  })
+});
+
+
+/**
+ * @api {post} /get_not_considered_requests
+ * @apiName get not considered requests
+ * 
+ * @apiSuccessExample Success-Response: []
+ * -
+ * @apiError Error occured
+ */
+router.get('/get_not_considered_requests',(req,res,next) => {
+  Request.get_not_considered_requests((err,callback)=>{
+    if(err){
+      res.json({
+        success: false, msg: 'error occured'
+      })
+    }else{
+      res.json({
+        success: true,
+        msg: callback['data']
       })
     }
   })
@@ -213,6 +267,7 @@ router.post('/getStatus', (req,res,next) => {
   })
 });
 
+// test route
 router.get('/test',(req,res,next) => {
   let refNo = 54;
   var html = fs.readFileSync('./templates/application.html', 'utf8');

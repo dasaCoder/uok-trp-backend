@@ -6,7 +6,14 @@ const jwt = require('jsonwebtoken');
 
 const Vehicle = require('../model/vehicles');
 
-// update vehicle status
+/**
+ * @api {post} /update/status
+ * @apiName update vehicle status
+ * 
+ * @apiSuccessExample Success-Response: []
+ * -
+ * @apiError Error occured
+ */
 router.post('/update/status', (req,res,next) => {
   _id = req.query._id;
 
@@ -25,6 +32,16 @@ router.post('/update/status', (req,res,next) => {
 });
 
 // load repair history for given vehicle
+
+/**
+ * @api {get} /maintenance/single/get
+ * @apiName load vehicle repair history
+ * @apiParam {string} _id
+ * 
+ * @apiSuccessExample Success-Response: []
+ * -
+ * @apiError Error occured
+ */
 router.get('/maintenance/single/get',(req,res,next) => {
   _id = req.query._id;
 
@@ -43,6 +60,16 @@ router.get('/maintenance/single/get',(req,res,next) => {
 });
 
 // change vehicle maintenence details
+
+/**
+ * @api {post} /maintenance/update
+ * @apiName change vehicle repair history
+ * @apiParam {object} vehicle
+ * 
+ * @apiSuccessExample Success-Response: []
+ * -
+ * @apiError Error occured
+ */
 router.post('/maintenance/update', (req,res,next) => {
   _id = req.query._id;
 
