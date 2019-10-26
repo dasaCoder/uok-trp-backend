@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 
-
+// connect to db
 mongoose.connect(config.database, { useNewUrlParser: true });
 
 mongoose.connection.on('connected', ()=>{
@@ -21,20 +21,23 @@ mongoose.connection.on('error', (err)=>{
   console.log('error '+err);
 });
 
-const vehicles = require('./routes/vehicles');
-const requests = require('./routes/request_routes');
-const admin = require('./routes/admin_routes');
 
 // models
 const AdminModel = require('./model/admin');
 
 const port = 3000;
 
+// configure the app body
 app.use(cors());
 let x = 0;
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use(bodyParser.json());
+
+// difine route files
+const vehicles = require('./routes/vehicles');
+const requests = require('./routes/request_routes');
+const admin = require('./routes/admin_routes');
 
 app.use('/vehicles',vehicles);
 app.use('/requests',requests);
@@ -44,6 +47,8 @@ app.get('/', (req,res)=>{
   res.send("home page");
 });
 
+
+// admin login
 app.post('/login', (req,res) => {
   let userN = {
     username: req.body.username,

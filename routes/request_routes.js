@@ -19,6 +19,15 @@ var transporter = nodemailer.createTransport({
   }
 });
 
+/**
+ * @api {post} /request/add
+ * @apiName addRequest
+ * 
+ * @apiParam {string} refNo lecuturer email telephone start_time end_time start_location end_location 
+ * @apiSuccessExample Success-Response: Reqeust added
+ * -
+ * @apiError Error occured
+ */
 router.post('/add',(req,res,next)=>{
 
   if(req.body) {
@@ -338,8 +347,5 @@ function sendRegEmail(refNo,password,name,email)
       }
     });
 }
-
-
-
 
 module.exports = router;
