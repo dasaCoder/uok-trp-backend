@@ -47,6 +47,12 @@ app.get('/', (req,res)=>{
   res.send("home page");
 });
 
+app.get('/home', (req,res)=>{
+  //console.log("home");
+  res.json({"error" : false, "message" : "Hello !"});
+});
+
+
 
 // admin login
 app.post('/login', (req,res) => {
@@ -72,7 +78,8 @@ app.post('/login', (req,res) => {
     let token = jwt.sign({username: user.username, isAdmin:true, role: user.role},'uok-trp',{ expiresIn:"10h" });
     return res.send({
                       token: token,
-                      status: 200
+                      status: 200,
+                      error: false
                     });
 
   })
