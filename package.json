@@ -19,7 +19,7 @@
     "express": "^4.16.3",
     "html-pdf": "^2.2.0",
     "jsonwebtoken": "^8.2.1",
-    "mongoose": "^5.0.13",
+    "mongoose": "^5.7.5",
     "mongoose-auto-increment": "^5.0.1",
     "nodemailer": "^4.6.8",
     "passport": "*",
