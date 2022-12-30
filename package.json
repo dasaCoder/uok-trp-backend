@@ -27,7 +27,7 @@
     "sendgrid": "^5.2.3"
   },
   "devDependencies": {
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "nodemon": "^1.19.3",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
